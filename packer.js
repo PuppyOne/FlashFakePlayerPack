@@ -2,7 +2,7 @@ const fs = require('fs');
 const archiver = require('archiver');
 
 
-const pkNew = '暴力修复生物生存-随机刻-时间'
+const pkNew = '为什么跑不了啊啊啊啊'
 const mcVersion = [1,21,30];
 const pkVersion = 2
 
@@ -40,7 +40,7 @@ const manifest_json = {
     "dependencies": [
         {
             "module_name": "@minecraft/server",
-            "version": "1.15.0-beta"
+            "version": "1.16.0-beta"
         },
         {
             "module_name": "@minecraft/server-gametest",
