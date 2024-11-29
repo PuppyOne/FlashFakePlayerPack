@@ -42,7 +42,7 @@ function AUTO_BEHAVIOR(){
         if(SimPlayer.hasTag(SIGN.AUTO_ATTACK_SIGN) && EntitiesNear)SimPlayer.lookAtEntity(EntitiesNear)
         if(SimPlayer.hasTag(SIGN.AUTO_ATTACK_SIGN) && EntitiesFromView)SimPlayer.attackEntity(EntitiesFromView)
 
-        if(SimPlayer.hasTag(SIGN.AUTO_TRIDENT_SIGN))SimPlayer.useItemInSlot(0) ? system.runTimeout(()=>SimPlayer.stopUsingItem(),10) : 0
+        if(SimPlayer.hasTag(SIGN.AUTO_TRIDENT_SIGN))SimPlayer.useItemInSlot(0) ? system.runTimeout(()=>SimPlayer.stopUsingItem(),40) : 0
 
         if(SimPlayer.hasTag(SIGN.AUTO_CHASE_SIGN)){
             const entities = getEntitiesNear(SimPlayer.location,SimPlayer.dimension,12,{families:["undead"]})
@@ -85,7 +85,7 @@ function AUTO_BEHAVIOR(){
     // SimulatedPlayerCount && world.getDimension('minecraft:overworld').runCommand('gamerule playerssleepingpercentage '+Math.floor(100*SimulatedPlayerCount/AllPlayerCount))
 }
 
-system.runInterval(AUTO_BEHAVIOR,20)
+system.runInterval(AUTO_BEHAVIOR,50)
 
 
 // const commandRegistry: CommandRegistry = new CommandRegistry('task')
