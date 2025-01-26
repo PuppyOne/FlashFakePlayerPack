@@ -17,7 +17,7 @@ const queue = {
     playerFishingArray: new Array<Entity>(),
 };
 
-const pos = {}
+const pos = {};
 world.afterEvents.itemUse.subscribe((event: ItemUseAfterEvent) => {
 
     event.itemStack.typeId === "minecraft:bow"
