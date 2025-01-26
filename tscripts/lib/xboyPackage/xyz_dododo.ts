@@ -19,7 +19,7 @@ export function xyz_dododo(xyz:(`${number}`|`~${number}`/*|`~+${number}`|`~-${nu
             if (Number.isFinite(data))
                 return data;
             throw new Error(['x', 'y', 'z'][index] + ' not a number');
-        }
+        };
 
         let data: number|string = part.slice(1) // 去掉~
         let op = ops[data[0]] // 存在风险
