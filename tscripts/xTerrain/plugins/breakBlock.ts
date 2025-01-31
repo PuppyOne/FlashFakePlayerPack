@@ -57,7 +57,7 @@ const breaks = (/*awa:awa='awa'*/)=>
         const durabilityComponent = mainhand?.getComponent(ItemComponentTypes.Durability);
         const durability = durabilityComponent?.maxDurability;
         const damage = durabilityComponent?.damage;
-        if (durability !== undefined && damage !== undefined && durability - damage <= 1) return
+        if (durabilityComponent?.isValid() && durability - damage <= 1) return
 
         const viewDirection = man.getViewDirection()
         const headLocation = man.getHeadLocation()
