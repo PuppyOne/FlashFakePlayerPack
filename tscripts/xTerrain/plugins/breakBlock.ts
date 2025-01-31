@@ -1,5 +1,5 @@
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
-import {Dimension, Player, Vector3} from '@minecraft/server'
+import {Dimension, EntityComponentTypes, EquipmentSlot, ItemComponentTypes, Player, Vector3, type EntityEquippableComponent} from '@minecraft/server'
 
 import {
     simulatedPlayers,
@@ -51,6 +51,14 @@ const breaks = (/*awa:awa='awa'*/)=>
         // 这是一会要用到的妙妙工具
         // @ts-ignore
         const man = <SimulatedPlayer>SimPlayer
+
+        const equippableComponent = <EntityEquippableComponent><unknown>man.getComponent(EntityComponentTypes.Equippable);
+        const mainhand = equippableComponent.getEquipment(EquipmentSlot.Mainhand);
+        const durabilityComponent = mainhand?.getComponent(ItemComponentTypes.Durability);
+        const durability = durabilityComponent?.maxDurability;
+        const damage = durabilityComponent?.damage;
+        if (durability !== undefined && damage !== undefined && durability - damage <= 0) return
+
         const viewDirection = man.getViewDirection()
         const headLocation = man.getHeadLocation()
         const time =  times.get(man.id) ?? 0
