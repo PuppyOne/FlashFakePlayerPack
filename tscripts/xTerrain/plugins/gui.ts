@@ -7,9 +7,8 @@ import SIGN, {
     SIGN_TAG_LIST,
     SIGN_ZH
 } from '../../lib/xboyPackage/YumeSignEnum'
-import { ActionFormData } from '@minecraft/server-ui'
+import { ActionFormData, ModalFormData } from '@minecraft/server-ui'
 import { SimulatedPlayer } from '@minecraft/server-gametest'
-import { getSimPlayer } from '../../lib/xboyPackage/Util'
 import { simulatedPlayers } from '../main'
 
 // world.afterEvents.entityHitEntity.subscribe(({damagingEntity,hitEntity})=>{
@@ -30,17 +29,21 @@ world.beforeEvents.playerInteractWithEntity.subscribe(e=>{
     e.cancel=true
 
     const tagManager = ()=>{
-        const mng = new ActionFormData().title('标签管理（金色为启用）')
-        mng.body('#x#').body(SimPlayer.nameTag)//.button('喵？');
+        const mng = new ModalFormData().title('标签管理')
+        // mng.('#x#').body(SimPlayer.nameTag)//.button('喵？');
 
         for (const signKey of SIGN_TAG_LIST) {
-            mng.button((SimPlayer.hasTag(signKey)?'§l§e':'§l§1') + SIGN_ZH[SIGN[signKey]])
+            mng.toggle(SIGN_ZH[SIGN[signKey]], SimPlayer.hasTag(signKey))
             // world.sendMessage('#tag=>'+signKey);
         }
         // @ts-ignore
         mng.show(<Player>player).then((response) => {
-            const tag = SIGN_TAG_LIST[response.selection]
-            SimPlayer.hasTag(tag)?SimPlayer.removeTag(tag):SimPlayer.addTag(tag)
+            SIGN_TAG_LIST.forEach((signKey, index) => {
+                if (response.formValues[index] && !SimPlayer.hasTag(signKey))
+                    SimPlayer.addTag(signKey);
+                else if (!response.formValues[index] && SimPlayer.hasTag(signKey))
+                    SimPlayer.removeTag(signKey);
+            })
         },()=>0).catch(()=>0)
     }
 
