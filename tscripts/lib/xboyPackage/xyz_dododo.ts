@@ -1,13 +1,16 @@
-// 将1 1 1解析为x y z
-// 将1.1 -20 -30.2解析为x y z
-// 将~1 ~1 ~1解析为x y z，解析时假设xyz上的~分别是一个全局变量
-// 解析字符串为x, y, z
-
 const ops = {}
 ops['+'] = '+'
 ops['-'] = '-'
 
-export function xyz_dododo(xyz:string[],playerLocation=[0,0,0]) : number[] {
+/**
+ * @example
+ * console.log(xyz_dododo('1 2 3')); // [ 1, 2, 3 ]
+ *
+ * console.log(xyz_dododo('~30 5 4', [1, 0, 0])) // [ 31, 5, 4 ]
+ *
+ * console.log(xyz_dododo('~-30 5 4', [1, 25, 0])) // [ 29, 5, 4 ]
+ */
+export function xyz_dododo(xyz:(`${number}`|`~${number}`/*|`~+${number}`|`~-${number}`*/)[],playerLocation=[0,0,0]) : number[] {
     // 遍历分割后的数组
     return xyz.map((part, index) => {
         // 否则直接解析为数字
@@ -31,16 +34,16 @@ export function xyz_dododo(xyz:string[],playerLocation=[0,0,0]) : number[] {
         if(!Number.isFinite(data))
             throw new Error(['x','y','z'][index] + ' not a number')
 
+        if (op === '+')
+            return playerLocation[index] + data;
+        if (op === '-')
+            return playerLocation[index] - data;
 
-        if(op === '+')
-            data += playerLocation[index]
-        if(op === '-')
-            data -= playerLocation[index]
-
-        return data
+        return data;
     });
 }
 
+/*
 function xyz_dododo_test() {
     // 示例用法
     const result1 = xyz_dododo(["1", "1", "1"]);
@@ -53,7 +56,7 @@ function xyz_dododo_test() {
     const result3 = xyz_dododo(["~2.2", "~+3" ,"~-4.5"]);
     console.log(result3); // [ 102.2, 203, -295.5 ]
 
-
+    // @ts-expect-error
     const result4 = xyz_dododo(["~/2.2", "~+0" ,"~-"]);
     console.log(result4);
     // throw new Error(['x','y','z'][index] + ' not a number')
@@ -61,3 +64,4 @@ function xyz_dododo_test() {
     //
     // Error: x not a number
 }
+*/

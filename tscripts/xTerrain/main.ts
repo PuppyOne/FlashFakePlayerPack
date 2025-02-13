@@ -5,7 +5,7 @@ import type {
     spawnedEvent,
     spawnedEventSignal,
 } from '../@types/globalThis'
-import { Dimension, system, Vector3 } from '@minecraft/server'
+import {Dimension, LocationOutOfWorldBoundariesError, system, Vector3} from '@minecraft/server'
 
 import { register } from '@minecraft/server-gametest'
 
@@ -30,14 +30,17 @@ import './plugins/gui'
 import './plugins/autoFishing'
 import './plugins/killedBySimPlayer'
 import './plugins/setting'
+import './plugins/showCommandsList'
 import { playerMove } from "../lib/xboyEvents/move";
 import { spawnLog } from './plugins/logging'
+import { cannotHandledExceptionWaringText, CommandError, commandManager, getLocationFromEntityLike } from '../lib/yumeCommand/CommandRegistry';
+import '../lib/yumeCommand/scriptEventHandler'
 
 const overworld = world.getDimension('overworld')
 const tickWaitTimes = 20*60*60*24*365
 
 // all of SimulatedPlayer List
-export const SimulatedPlayerEnum  = {}
+export const simulatedPlayers  = {}
 
 export let initSucceed = false
 
@@ -84,22 +87,30 @@ register('我是云梦', '假人', (test:Test) => {
     }
     spawnSimulatedPlayerByNameTag = (location:Vector3, dimension:Dimension, nameTag: string ):SimulatedPlayer=>{
 
-        const SimulatedPlayer = test.spawnSimulatedPlayer({ x:0, y:8, z:0 }, nameTag)
-        SimulatedPlayer.addTag('init')
-        SimulatedPlayer.addTag(SIGN.YUME_SIM_SIGN)
-        SimulatedPlayer.addTag(SIGN.AUTO_RESPAWN_SIGN)
-        //@ts-ignore
-        SimulatedPlayer.setSpawnPoint({...location,dimension})
-        //@ts-ignore
-        SimulatedPlayer.teleport(location, { dimension })
+        const simulatedPlayer = test.spawnSimulatedPlayer({ x:0, y:8, z:0 }, nameTag)
+        simulatedPlayer.addTag('init')
+        simulatedPlayer.addTag(SIGN.YUME_SIM_SIGN)
+        simulatedPlayer.addTag(SIGN.AUTO_RESPAWN_SIGN)
+        try {
+            simulatedPlayer.setSpawnPoint({...location, dimension})
+            simulatedPlayer.teleport(location, {dimension})
+        } catch (e) {
+            if (e instanceof LocationOutOfWorldBoundariesError) {
+                console.warn('[模拟玩家] 有东西尝试在非法位置生成假人，已阻止');
+                simulatedPlayer.disconnect();
+            } else {
+                throw e;
+            }
+        }
 
-        spawnLog(SimulatedPlayer.name, location, dimension);
-        return SimulatedPlayer
+        spawnLog(simulatedPlayer.name, location, dimension);
+
+        return simulatedPlayer
     }
 
     initialized.trigger(null)
     initSucceed = true
-    console.warn('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”')
+    console.log('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”')
 })
 .maxTicks(tickWaitTimes)
 .structureName('xboyMinemcSIM:void');
@@ -151,6 +162,17 @@ playerMove.subscribe(()=>{
     //     // '鱼肉 ‭‭‭⁧⁧⁧~咕噜咕噜',
     //
     // )
+
+world.afterEvents.chatSend.subscribe(({ message, sender }) => {
+    try {
+        commandManager.execute(message, { entity: sender, isEntity: true, location: getLocationFromEntityLike(sender) });
+    } catch (e) {
+        if (!(e instanceof CommandError)) {
+            console.error(e);
+            world.sendMessage(cannotHandledExceptionWaringText);
+        }
+    }
+});
 
 export { spawnSimulatedPlayer,spawnSimulatedPlayerByNameTag,testWorldLocation,GetPID }
 
