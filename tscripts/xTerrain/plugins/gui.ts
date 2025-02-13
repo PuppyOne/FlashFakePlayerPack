@@ -29,7 +29,7 @@ world.beforeEvents.playerInteractWithEntity.subscribe(e=>{
     e.cancel=true
 
     const tagManager = ()=>{
-        const mng = new ModalFormData().title('标签管理（金色为启用）')
+        const mng = new ModalFormData().title('标签管理')
         // mng.('#x#').body(SimPlayer.nameTag)//.button('喵？');
 
         for (const signKey of SIGN_TAG_LIST) {
