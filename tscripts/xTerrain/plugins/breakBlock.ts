@@ -10,11 +10,6 @@ import { getSimPlayer } from '../../lib/xboyPackage/Util'
 import { world, system } from "@minecraft/server"
 import SIGN from "../../lib/xboyPackage/YumeSignEnum";
 
-
-export const BreakBlockSimulatedPlayerList:Set<string> = new Set()
-
-
-
 const breakBlockCommand = new Command();
 breakBlockCommand.register(({ args }) => args.length === 0, ({ entity, isEntity }) => {
     if (!isEntity) {
@@ -54,16 +49,16 @@ const breaks = (/*awa:awa='awa'*/)=>
         const viewDirection = man.getViewDirection()
         const headLocation = man.getHeadLocation()
         const time =  times.get(man.id) ?? 0
-        const whatCanISee =  Vector_addition(headLocation, Vector_multiplication_dot(viewDirection,time % 3 + 1))
+        const block =  man.getBlockFromViewDirection({maxDistance:6})?.block
+        if (!block) return
+
         const dimension = <Dimension>man.dimension
         // dimension.spawnParticle('minecraft:endrod',headLocation)
 
 
-        const block = dimension.getBlock(testWorldLocation["worldBlockLocation"](Vector_subtract(whatCanISee, testWorldLocation)))
-
         time < 600 && dimension.spawnParticle('minecraft:endrod',Vector_addition(block.location, {x:0.5,y:0.5,z:0.5}))
         if (block.isValid() && !block.isLiquid && !block.isAir){
-            man.breakBlock(Vector_subtract(whatCanISee, testWorldLocation))
+            man.breakBlock(Vector_subtract(block, testWorldLocation))
         } else {
             times.set(man.id,time+1)
         }
