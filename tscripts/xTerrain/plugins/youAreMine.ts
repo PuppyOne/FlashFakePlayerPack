@@ -2,12 +2,9 @@ import { SimulatedPlayer } from '@minecraft/server-gametest'
 import { getSimPlayer } from '../../lib/xboyPackage/Util'
 import { Command, commandManager, getLocationFromEntityLike } from '../../lib/yumeCommand/CommandRegistry'
 import {
-    DimensionType,
-    DimensionTypes,
     EntityEquippableComponent,
     EntityInventoryComponent,
     EquipmentSlot,
-    MinecraftDimensionTypes,
     TicksPerSecond,
     world
 } from '@minecraft/server'
