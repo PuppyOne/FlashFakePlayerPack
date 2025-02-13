@@ -38,8 +38,12 @@ world.beforeEvents.playerInteractWithEntity.subscribe(e=>{
         }
         // @ts-ignore
         mng.show(<Player>player).then((response) => {
-        //     const tag = SIGN_TAG_LIST[response.selection]
-        //     SimPlayer.hasTag(tag)?SimPlayer.removeTag(tag):SimPlayer.addTag(tag)
+            SIGN_TAG_LIST.forEach((signKey, index) => {
+                if (response.formValues[index] && !SimPlayer.hasTag(signKey))
+                    SimPlayer.addTag(signKey);
+                else if (!response.formValues[index] && SimPlayer.hasTag(signKey))
+                    SimPlayer.removeTag(signKey);
+            })
         },()=>0).catch(()=>0)
     }
 
