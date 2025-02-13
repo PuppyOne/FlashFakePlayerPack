@@ -30,7 +30,8 @@ import './plugins/gui'
 import './plugins/autoFishing'
 import './plugins/killedBySimPlayer'
 import './plugins/setting'
-import {playerMove} from "../lib/xboyEvents/move";
+import { playerMove } from "../lib/xboyEvents/move";
+import { spawnLog } from './plugins/logging'
 
 const overworld = world.getDimension('overworld')
 const tickWaitTimes = 20*60*60*24*365
@@ -92,6 +93,7 @@ register('我是云梦', '假人', (test:Test) => {
         //@ts-ignore
         SimulatedPlayer.teleport(location, { dimension })
 
+        spawnLog(SimulatedPlayer.name, location, dimension);
         return SimulatedPlayer
     }
 

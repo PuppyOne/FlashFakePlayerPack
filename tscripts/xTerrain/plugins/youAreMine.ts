@@ -1,4 +1,4 @@
-import type { SimulatedPlayer } from '@minecraft/server-gametest'
+import { SimulatedPlayer } from '@minecraft/server-gametest'
 import { getSimPlayer } from '../../lib/xboyPackage/Util'
 import { CommandRegistry, type commandInfo } from '../../lib/yumeCommand/CommandRegistry'
 import {
@@ -10,7 +10,7 @@ import {
     TicksPerSecond
 } from '@minecraft/server'
 import { SimulatedPlayerEnum } from '../main'
-
+import { disconnectLog } from './logging';
 
 // 后面还要重构一遍
 // const commandName1 = '假人背包交换'
@@ -159,7 +159,10 @@ commandRegistry.registerAlias('假人爆金币','假人背包清空')
 commandRegistry.registerAlias('假人移除','假人销毁')
 commandRegistry.registerAlias('假人清除','假人销毁')
 commandRegistry.registerCommand('假人销毁', ({entity,isEntity,args,sim}) => {
-    if(sim)return sim.disconnect()
+    if(sim){
+        disconnectLog(sim.name);
+        return sim.disconnect();
+    }
 
     if(!isEntity) {
         console.error('error not isEntity')
@@ -171,6 +174,7 @@ commandRegistry.registerCommand('假人销毁', ({entity,isEntity,args,sim}) => 
 
         commandRegistry.executeCommand('假人背包清空',{args:['假人背包清空'],entity,isEntity,sim:SimPlayer})
         entity.sendMessage("§e§l-拜拜了您内")
+        disconnectLog(SimPlayer.name);
         SimPlayer.disconnect()
     }
     else {
@@ -184,6 +188,7 @@ commandRegistry.registerCommand('假人销毁', ({entity,isEntity,args,sim}) => 
 
         commandRegistry.executeCommand('假人背包清空',{args:['假人背包清空'],entity,isEntity,sim:SimPlayer})
         entity.sendMessage("§e§l-拜拜了您内")
+        disconnectLog(SimPlayer.name);
         SimPlayer.disconnect()
     }
 
