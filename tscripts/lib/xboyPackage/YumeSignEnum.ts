@@ -62,7 +62,6 @@ export enum  BEHAVIOR_ZH {
 }
 
 export const BEHAVIOR_FUNCTION = {
-    // @ts-ignore
     lookAtEntity : (sim:SimulatedPlayer,player:Player)=>sim.lookAtEntity(player,LookDuration.Instant),
     teleport : (sim:SimulatedPlayer,player:Player)=>sim.teleport(player.location),
     useAndStopUsingItem : (sim:SimulatedPlayer&Player)=>sim.useItemInSlot(sim.selectedSlotIndex) && sim.stopUsingItem(),
