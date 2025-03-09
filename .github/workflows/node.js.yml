@@ -54,14 +54,12 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
+          path: ${{ github.workspace }}/dist
           name: ${{ env.artifact-name }}
-      
-      - name: test
-        run: ls -al
 
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
           name: Release ${{ github.ref_name }}
-          files: ${{ env.artifact-name }}
+          files: ${{ github.workspace }}/dist/*
           body_path: ${{ github.workspace }}/CHANGELOG.md
