@@ -1,6 +1,5 @@
 import { xyz_dododo } from './xyz_dododo';
 
-// npm install --save-dev jest @types/jest ts-jest
 describe('xyz_dododo', () => {
     it('should parse simple numbers', () => {
         expect(xyz_dododo(['1', '2', '3'])).toEqual([1, 2, 3]);
