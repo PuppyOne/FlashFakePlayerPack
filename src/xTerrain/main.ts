@@ -32,7 +32,7 @@ import './plugins/killedBySimPlayer'
 import './plugins/setting'
 import './plugins/showCommandsList'
 import {playerMove} from "../lib/xboyEvents/move";
-import { cannotHandledExceptionWarningText, CommandError, commandManager, getLocationFromEntityLike } from '../lib/yumeCommand/CommandRegistry';
+import { cannotHandledExceptionWarningText, CommandError, commandManager, getLocationFromEntityLike } from '../command';
 import '../lib/yumeCommand/scriptEventHandler'
 
 const overworld = world.getDimension('overworld')

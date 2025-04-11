@@ -10,7 +10,7 @@ import {
     CommandNotFoundError,
     type CommandInfoNoArgs,
     cannotHandledExceptionWarningText
-} from "./CommandRegistry";
+} from "../../command";
 
 const namespaces = ['ffp'];
 
