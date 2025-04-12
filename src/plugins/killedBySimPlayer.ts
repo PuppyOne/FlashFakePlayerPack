@@ -1,6 +1,6 @@
 import type { Player } from '@minecraft/server';
 import entityDeadByHurt from '../lib/xboyEvents/entityDeadByHurt'
-import {simulatedPlayers} from '../xTerrain/main'
+import {simulatedPlayers} from './main'
 
 entityDeadByHurt.subscribe(({ damageSource: { damagingEntity }, deadEntity }) => {
     if (deadEntity.typeId !== 'minecraft:player' || damagingEntity.typeId !== 'minecraft:player') return;

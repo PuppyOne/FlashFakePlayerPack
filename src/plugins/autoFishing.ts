@@ -1,4 +1,4 @@
-import {simulatedPlayers} from '../xTerrain/main'
+import {simulatedPlayers} from './main'
 import {world} from "@minecraft/server";
 import {fishingHookDespawned, fishingHookSpawned} from "../lib/xboyEvents/fishingHookSpawned";
 

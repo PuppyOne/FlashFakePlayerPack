@@ -10,7 +10,7 @@ import SIGN, {
 import { ActionFormData } from '@minecraft/server-ui'
 import { SimulatedPlayer } from '@minecraft/server-gametest'
 import { getSimPlayer } from '../lib/xboyPackage/Util'
-import { simulatedPlayers } from '../xTerrain/main'
+import { simulatedPlayers } from './main'
 
 // world.afterEvents.entityHitEntity.subscribe(({damagingEntity,hitEntity})=>{
 //     if(!damagingEntity || !hitEntity)return;

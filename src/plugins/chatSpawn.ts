@@ -6,7 +6,7 @@ import {
     spawned as spawnedEvent,
     spawnSimulatedPlayer,
     spawnSimulatedPlayerByNameTag
-} from '../xTerrain/main'
+} from './main'
 import { type CommandInfo, commandManager, Command } from '../command'
 import { Dimension, Vector3, world, type Player } from '@minecraft/server'
 import {xyz_dododo} from "../lib/xboyPackage/xyz_dododo";

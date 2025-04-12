@@ -19,18 +19,18 @@ import { world } from '@minecraft/server'
 
 
 
-import '../plugins/help'
+import './help'
 
-import '../plugins/chatSpawn'
-import '../plugins/command'
-import '../plugins/breakBlock'
-import '../plugins/youAreMine'
-import '../plugins/task'
-import '../plugins/gui'
-import '../plugins/autoFishing'
-import '../plugins/killedBySimPlayer'
-import '../plugins/setting'
-import '../plugins/showCommandsList'
+import './chatSpawn'
+import './command'
+import './breakBlock'
+import './youAreMine'
+import './task'
+import './gui'
+import './autoFishing'
+import './killedBySimPlayer'
+import './setting'
+import './showCommandsList'
 import {playerMove} from "../lib/xboyEvents/move";
 import { cannotHandledExceptionWarningText, CommandError, commandManager, getLocationFromEntityLike } from '../command';
 import '../lib/yumeCommand/scriptEventHandler'

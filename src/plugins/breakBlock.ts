@@ -4,7 +4,7 @@ import {Dimension, Player, Vector3} from '@minecraft/server'
 import {
     simulatedPlayers,
     testWorldLocation
-} from '../xTerrain/main'
+} from './main'
 import { Command, commandManager } from '../command';
 import { getSimPlayer } from '../lib/xboyPackage/Util'
 import { world, system } from "@minecraft/server"

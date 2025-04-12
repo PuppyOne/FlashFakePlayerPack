@@ -8,7 +8,7 @@ import {
     TicksPerSecond,
     world
 } from '@minecraft/server'
-import { simulatedPlayers } from '../xTerrain/main';
+import { simulatedPlayers } from './main';
 
 const dimensionMap: Record<string, string> = {
     'minecraft:overworld': '主世界',
