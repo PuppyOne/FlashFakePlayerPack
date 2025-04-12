@@ -157,7 +157,6 @@ playerMove.subscribe(()=>{
     //     // 'killedBySimPlayer',
     //     // 'setting',
     //     // 'Deja Vu Yan Returns',
-    //     // '鱼肉 ‭‭‭⁧⁧⁧~咕噜咕噜',
     //
     // )
 
