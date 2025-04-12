@@ -72,7 +72,6 @@ export class Command {
      * @description
      * 按命令注册先后顺序，
      * 只有第一个满足条件的 handler 会被执行。
-
      */
     execute(commandInfo: CommandInfo): void {
         for (const [condition, handlers] of this.conditionsHandlers)
