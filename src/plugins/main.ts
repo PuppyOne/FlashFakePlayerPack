@@ -32,7 +32,7 @@ import './killedBySimPlayer'
 import './setting'
 import './showCommandsList'
 import {playerMove} from "../lib/xboyEvents/move";
-import '../triggers/scriptEventHandler'
+import '../triggers/script-event'
 import '../triggers/chat-send'
 
 const overworld = world.getDimension('overworld')
