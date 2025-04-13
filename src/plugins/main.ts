@@ -32,8 +32,7 @@ import './killedBySimPlayer'
 import './setting'
 import './showCommandsList'
 import {playerMove} from "../lib/xboyEvents/move";
-import '../triggers/script-event'
-import '../triggers/chat-send'
+import '../triggers'
 
 const overworld = world.getDimension('overworld')
 const tickWaitTimes = 20*60*60*24*365
