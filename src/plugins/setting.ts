@@ -1,6 +1,6 @@
 import { Command, commandManager } from '../command'
 import type { ScoreboardObjective } from '@minecraft/server'
-import ScoreBase from '../lib/xboyPackage/scoreBase/rw'
+import ScoreBase from '../core/initialization/scoreBase/rw'
 
 
 const settingsCommand = new Command()

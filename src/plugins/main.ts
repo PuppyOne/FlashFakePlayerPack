@@ -9,7 +9,7 @@ import {Dimension, LocationOutOfWorldBoundariesError, system, Vector3} from '@mi
 
 import { register } from '@minecraft/server-gametest'
 
-import verify from '../lib/xboyPackage/scoreBase/verifyDataBase'
+import verify from '../core/initialization/scoreBase/verifyDataBase'
 import EventSignal from '../lib/xboyEvents/EventSignal'
 
 import { SIGN } from '../lib/xboyPackage/YumeSignEnum'
