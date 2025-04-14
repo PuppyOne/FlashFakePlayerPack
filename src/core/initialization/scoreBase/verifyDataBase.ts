@@ -1,13 +1,15 @@
 import { ScoreboardObjective, world } from '@minecraft/server';
 import ScoreBase from './rw';
 
-const verify = function () {
-    world.scoreboard.getObjective('##FlashPlayer##') || world.scoreboard.addObjective('##FlashPlayer##')
+class ScoreboardManager {
+    initialize() {
+        world.scoreboard.getObjective('##FlashPlayer##') || world.scoreboard.addObjective('##FlashPlayer##');
 
-    world.scoreboard
-        .getObjective('##FlashPlayer##')
-        .hasParticipant('##currentPID') ||
-        world.scoreboard.getObjective('##FlashPlayer##').setScore('##currentPID', 1);
-};
+        world.scoreboard
+            .getObjective('##FlashPlayer##')
+            .hasParticipant('##currentPID') ||
+            world.scoreboard.getObjective('##FlashPlayer##').setScore('##currentPID', 1);
+    }
+}
 
-export default verify;
+export default new ScoreboardManager().initialize
