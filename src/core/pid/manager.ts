@@ -1,7 +1,8 @@
 import { world } from '@minecraft/server';
+import type { PID } from './types';
 
 export class PIDManager {
-    constructor(private readonly initialValue: number = 1) {}
+    constructor(private readonly initialValue: PID = 1 as PID) {}
 
     initialize(): void {
         if (!world.scoreboard.getObjective('##FlashPlayer##'))
@@ -11,13 +12,13 @@ export class PIDManager {
             world.scoreboard.getObjective('##FlashPlayer##').setScore('##currentPID', this.initialValue);
     }
 
-    next(): number {
-        const pid = world.scoreboard.getObjective('##FlashPlayer##').addScore('##currentPID', 1);
+    next(): PID {
+        const pid = world.scoreboard.getObjective('##FlashPlayer##').addScore('##currentPID', 1) as PID;
         return pid;
     }
 
-    reset(): number {
-        const currentPID = world.scoreboard.getObjective('##FlashPlayer##').getScore('##currentPID');
+    reset(): PID {
+        const currentPID = world.scoreboard.getObjective('##FlashPlayer##').getScore('##currentPID') as PID;
         world.scoreboard.getObjective('##FlashPlayer##').setScore('##currentPID', this.initialValue);
         return currentPID;
     }
