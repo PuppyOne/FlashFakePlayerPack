@@ -104,6 +104,18 @@ export class SimulatedPlayerManager {
         }
     }
 
+    has(pid: PID): boolean;
+    has(id: string): boolean;
+    has(simulatedPlayer: SimulatedPlayer): boolean;
+    has(target: PID | string | SimulatedPlayer): boolean {
+        if (typeof target === 'number')
+            return this._pidToSimulatedPlayer.has(target);
+        else if (typeof target === 'string')
+            return this._idToPid.has(target);
+
+        return this._idToPid.has(target.id);
+    }
+
     getPID(id: string): PID | undefined {
         return this._idToPid.get(id);
     }
