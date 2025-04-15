@@ -3,7 +3,7 @@ import { PIDManager, type PID } from "../pid";
 import { Test, type SimulatedPlayer } from "@minecraft/server-gametest";
 import SIGN from "../../constants/YumeSignEnum";
 import { SimulatedPlayerNotFoundError, UninitializedError } from "./errors";
-import type { AddSimulatedPlayerOptions } from "./types";
+import type { AddSimulatedPlayerOptions, SpawnSimulatedPlayerOptions } from "./types";
 
 const overworld = world.getDimension('overworld');
 
@@ -56,8 +56,10 @@ export class SimulatedPlayerManager {
         return `工具人-${pid}`;
     }
 
-    private spawn(location: Vector3, dimension: Dimension, name: string): SimulatedPlayer {
+    private spawn({ name, location, dimension, nameTag }: SpawnSimulatedPlayerOptions): SimulatedPlayer {
         const simulatedPlayer = this._test!.spawnSimulatedPlayer({ x: 0, y: 8, z: 0 }, name);
+        if (nameTag)
+            simulatedPlayer.nameTag = nameTag;
         simulatedPlayer.addTag('init');
         this.initialSigns.forEach(sign => simulatedPlayer.addTag(sign));
         try {
@@ -73,14 +75,13 @@ export class SimulatedPlayerManager {
         return simulatedPlayer;
     }
 
-    add({ name, location, dimension }: AddSimulatedPlayerOptions) {
+    add(options: AddSimulatedPlayerOptions) {
         if (!this.ready)
             throw new UninitializedError('call initialize() first');//改名
 
         const pid = this.pidManager.next();
-        name ??= this.generateName(pid);
 
-        const simulatedPlayer = this.spawn(location, dimension, name);
+        const simulatedPlayer = this.spawn({ ...options, name: options.name ?? this.generateName(pid) });
 
         this._pidToSimulatedPlayer.set(pid, simulatedPlayer);
         this._idToPid.set(simulatedPlayer.id, pid);

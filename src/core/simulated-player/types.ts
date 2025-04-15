@@ -6,3 +6,7 @@ export interface AddSimulatedPlayerOptions {
     dimension: Dimension;
     nameTag?: string;
 }
+
+export interface SpawnSimulatedPlayerOptions extends AddSimulatedPlayerOptions {
+    name: string;
+}
