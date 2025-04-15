@@ -60,7 +60,6 @@ export class SimulatedPlayerManager {
         const simulatedPlayer = this._test!.spawnSimulatedPlayer({ x: 0, y: 8, z: 0 }, name);
         if (nameTag)
             simulatedPlayer.nameTag = nameTag;
-        simulatedPlayer.addTag('init');
         this.initialSigns.forEach(sign => simulatedPlayer.addTag(sign));
         try {
             //@ts-ignore
