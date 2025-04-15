@@ -33,6 +33,7 @@ import './setting'
 import './showCommandsList'
 import {playerMove} from "../lib/xboyEvents/move";
 import '../triggers'
+import { SimulatedPlayerManager } from '../core/simulated-player';
 
 const overworld = world.getDimension('overworld')
 const tickWaitTimes = 20*60*60*24*365
@@ -58,8 +59,6 @@ let doMobSpawning = true
 }
 //  ?
 
-let spawnSimulatedPlayer : (location:Vector3, dimension:Dimension, pid: number  )=>SimulatedPlayer
-let spawnSimulatedPlayerByNameTag : (location:Vector3, dimension:Dimension, nameTag: string  )=>SimulatedPlayer
 let testWorldLocation : Vector3
 
 
@@ -75,31 +74,7 @@ register('我是云梦', '假人', (test:Test) => {
     world.gameRules.doDayLightCycle = doDayLightCycle
     world.gameRules.doMobSpawning = doMobSpawning
 
-    spawnSimulatedPlayer = (location:Vector3, dimension:Dimension, pid: number ):SimulatedPlayer=>{
-        return spawnSimulatedPlayerByNameTag(location, dimension, `工具人-${pid}`)
-    }
-    spawnSimulatedPlayerByNameTag = (location:Vector3, dimension:Dimension, nameTag: string ):SimulatedPlayer=>{
-
-        const simulatedPlayer = test.spawnSimulatedPlayer({ x:0, y:8, z:0 }, nameTag)
-        simulatedPlayer.addTag('init')
-        simulatedPlayer.addTag(SIGN.YUME_SIM_SIGN)
-        simulatedPlayer.addTag(SIGN.AUTO_RESPAWN_SIGN)
-        try {
-            //@ts-ignore
-            simulatedPlayer.setSpawnPoint({...location, dimension})
-            //@ts-ignore
-            simulatedPlayer.teleport(location, {dimension})
-        } catch (e) {
-            if (e instanceof LocationOutOfWorldBoundariesError) {
-                console.warn('[模拟玩家] 有东西尝试在非法位置生成假人，已阻止');
-                simulatedPlayer.disconnect();
-            } else {
-                throw e;
-            }
-        }
-
-        return simulatedPlayer
-    }
+    simulatedPlayerManager.test = test
 
     initSucceed = true
     console.log('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”')
@@ -111,20 +86,10 @@ register('我是云梦', '假人', (test:Test) => {
 // .requiredSuccessfulAttempts(tickWaitTimes)
 // .padding(0)
 
-    // @ts-ignore
-    (world.afterEvents.worldInitialize ?? world.afterEvents['worldLoad']).subscribe(()=>{
-
-    // 记分板PID初始化
-    pidManager.initialize();
-
-    const z = 11451400 +  Math.floor(Math.random() * 114514 * 19 )
-    system.run(()=>{
-        try {
-            overworld.runCommand('execute positioned 15000000 256 ' + z + ' run gametest run 我是云梦:假人');
-        } catch (e) {
-            world.sendMessage('[模拟玩家] 报错了，我也不知道为什么' + e);
-        }
-    });
+export const simulatedPlayerManager=new SimulatedPlayerManager();
+// @ts-ignore
+(world.afterEvents.worldInitialize ?? world.afterEvents['worldLoad']).subscribe(()=>{
+    simulatedPlayerManager.initialize();
 })
 
 let say = false
@@ -153,5 +118,5 @@ playerMove.subscribe(()=>{
     //
     // )
 
-export { spawnSimulatedPlayer,spawnSimulatedPlayerByNameTag,testWorldLocation }
+export { testWorldLocation }
 
