@@ -21,7 +21,6 @@ const spawnAndRegisterSimulatedPlayer = (entity: Player | undefined, location: V
     }
 
     const pid = pidManager.next();
-    const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##');
     const simulatedPlayer: SimulatedPlayer = nameTag
         ? spawnSimulatedPlayerByNameTag(location, dimension, nameTag)
         : spawnSimulatedPlayer(location, dimension, pid);
@@ -31,7 +30,6 @@ const spawnAndRegisterSimulatedPlayer = (entity: Player | undefined, location: V
     simulatedPlayers[simulatedPlayer.id] = pid;
 
     spawnedEvent.trigger({ spawnedSimulatedPlayer: simulatedPlayer, PID: pid });
-    __FlashPlayer__.setScore(simulatedPlayer.id, pid);
 };
 
 const chatSpawnCommand = new Command();
