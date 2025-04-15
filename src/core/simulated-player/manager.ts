@@ -2,7 +2,7 @@ import { system, world, type Entity, type Vector3 } from "@minecraft/server";
 import { PIDManager, type PID } from "../pid";
 import { Test, type SimulatedPlayer } from "@minecraft/server-gametest";
 import SIGN from "../../constants/YumeSignEnum";
-import { SimulatedPlayerNotFoundError, UninitializedError } from "./errors";
+import { SimulatedPlayerNotFoundError, NotReadyError } from "./errors";
 import type { AddSimulatedPlayerOptions, SpawnSimulatedPlayerOptions } from "./types";
 
 const overworld = world.getDimension('overworld');
@@ -86,7 +86,7 @@ export class SimulatedPlayerManager {
 
     add(options: AddSimulatedPlayerOptions) {
         if (!this.ready)
-            throw new UninitializedError('call initialize() first');//改名
+            throw new NotReadyError('call initialize() and set test first');
 
         const pid = this.pidManager.next();
 

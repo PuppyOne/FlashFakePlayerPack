@@ -2,7 +2,7 @@ import { simulatedPlayerManager } from './main';
 import { type CommandInfo, commandManager, Command } from '../core/command'
 import { Dimension, LocationOutOfWorldBoundariesError, Vector3, world, type Player } from '@minecraft/server'
 import {xyz_dododo} from "../utils/xyz_dododo";
-import { UninitializedError } from '../core/simulated-player';
+import { NotReadyError } from '../core/simulated-player';
 
 const overworld = world.getDimension("overworld");
 
@@ -10,7 +10,7 @@ const addSimulatedPlayer = (entity: Player | undefined, location: Vector3, dimen
     try {
         simulatedPlayerManager.add({ name: nameTag, dimension, location });
     } catch (e) {
-        if (e instanceof UninitializedError)
+        if (e instanceof NotReadyError)
             entity?.sendMessage('[假人] 插件未初始化完成，请重试');
         else if (e instanceof LocationOutOfWorldBoundariesError)
             entity?.sendMessage('[假人] 位置非法，请在合法位置重试');
