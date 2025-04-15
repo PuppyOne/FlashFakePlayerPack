@@ -1,4 +1,4 @@
-import { LocationOutOfWorldBoundariesError, system, world, type Dimension, type Vector3 } from "@minecraft/server";
+import { LocationOutOfWorldBoundariesError, system, world, type Dimension, type Entity, type Vector3 } from "@minecraft/server";
 import { PIDManager, type PID } from "../pid";
 import { Test, type SimulatedPlayer } from "@minecraft/server-gametest";
 import SIGN from "../../constants/YumeSignEnum";
@@ -104,8 +104,8 @@ export class SimulatedPlayerManager {
 
     has(pid: PID): boolean;
     has(id: string): boolean;
-    has(simulatedPlayer: SimulatedPlayer): boolean;
-    has(target: PID | string | SimulatedPlayer): boolean {
+    has(simulatedPlayer: Entity): boolean;
+    has(target: PID | string | Entity): boolean {
         if (typeof target === 'number')
             return this._pidToSimulatedPlayer.has(target);
         else if (typeof target === 'string')
