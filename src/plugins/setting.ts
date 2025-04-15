@@ -5,7 +5,7 @@ import { simulatedPlayerManager } from './main';
 const settingsCommand = new Command()
 
 settingsCommand.register(({ entity }) => {
-    const PID = simulatedPlayerManager.pidManager.reset()
+    const PID = simulatedPlayerManager.resetPID()
     entity?.sendMessage('重置成功，重置前为'+PID)
 
 

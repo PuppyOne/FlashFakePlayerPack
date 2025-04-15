@@ -19,7 +19,7 @@ export class SimulatedPlayerManager {
     private _pidToSimulatedPlayer = new Map<PID, SimulatedPlayer>();
     private _idToPid = new Map<string, PID>();
 
-    constructor(public readonly pidManager: PIDManager = new PIDManager()) {}
+    constructor(private readonly pidManager: PIDManager = new PIDManager()) {}
 
     set test(test: Test) {
         this._test = test;
@@ -145,5 +145,9 @@ export class SimulatedPlayerManager {
 
         this._idToPid.delete(simulatedPlayer.id);
         this._pidToSimulatedPlayer.delete(pid);
+    }
+
+    resetPID(): PID {
+        return this.pidManager.reset();
     }
 }
