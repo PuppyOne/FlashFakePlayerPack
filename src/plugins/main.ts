@@ -1,18 +1,6 @@
-import type { SimulatedPlayer, Test } from '@minecraft/server-gametest'
-import type {
-    initializedEvent,
-    initializedEventSignal,
-    spawnedEvent,
-    spawnedEventSignal,
-} from '../@types/globalThis'
-import {Dimension, LocationOutOfWorldBoundariesError, system, Vector3} from '@minecraft/server'
-
+import type { Test } from '@minecraft/server-gametest'
+import { Vector3 } from '@minecraft/server';
 import { register } from '@minecraft/server-gametest'
-
-import { PIDManager } from '../core/pid'
-import EventSignal from '../lib/xboyEvents/EventSignal'
-
-import { SIGN } from '../constants/YumeSignEnum'
 import { world } from '@minecraft/server'
 
 // import './plugins/noFlashDoor' // pig
@@ -35,15 +23,7 @@ import {playerMove} from "../lib/xboyEvents/move";
 import '../triggers'
 import { SimulatedPlayerManager } from '../core/simulated-player';
 
-const overworld = world.getDimension('overworld')
 const tickWaitTimes = 20*60*60*24*365
-// all of SimulatedPlayer List
-export const simulatedPlayers  = {}
-
-export let initSucceed = false
-
-export const pidManager = new PIDManager();
-
 
 let randomTickSpeed = 1
 let doDayLightCycle = true
@@ -76,7 +56,6 @@ register('我是云梦', '假人', (test:Test) => {
 
     simulatedPlayerManager.test = test
 
-    initSucceed = true
     console.log('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”')
 })
 .maxTicks(tickWaitTimes)
@@ -97,6 +76,7 @@ playerMove.subscribe(()=>{
     if (say) return
     say = true
     world.sendMessage('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”')
+    // TODO: 发送一次后解挂
 })
 
     // initialized.subscribe(()=> console.error('[模拟玩家]初始化完毕，加载内置插件') )

@@ -1,32 +1,22 @@
 import type {SimulatedPlayer} from '@minecraft/server-gametest'
 
-import {
-    initSucceed,
-    pidManager,
-    simulatedPlayers,
-    spawnSimulatedPlayer,
-    spawnSimulatedPlayerByNameTag
-} from './main'
+import { simulatedPlayerManager } from './main';
 import { type CommandInfo, commandManager, Command } from '../core/command'
 import { Dimension, Vector3, world, type Player } from '@minecraft/server'
 import {xyz_dododo} from "../utils/xyz_dododo";
+import { UninitializedError } from '../core/simulated-player';
 
 const overworld = world.getDimension("overworld");
 
 const spawnAndRegisterSimulatedPlayer = (entity: Player | undefined, location: Vector3, dimension: Dimension, nameTag?: string): void => {
-    if (!initSucceed) {
-        entity?.sendMessage('[假人] 插件未初始化完成，请重试');
-        return;
+    try {
+        simulatedPlayerManager.add({ name: nameTag, dimension, location });
+    } catch (e) {
+        if (e instanceof UninitializedError)
+            entity?.sendMessage('[假人] 插件未初始化完成，请重试');
+        else
+            throw e;
     }
-
-    const pid = pidManager.next();
-    const simulatedPlayer: SimulatedPlayer = nameTag
-        ? spawnSimulatedPlayerByNameTag(location, dimension, nameTag)
-        : spawnSimulatedPlayer(location, dimension, pid);
-
-
-    simulatedPlayers[pid] = simulatedPlayer;
-    simulatedPlayers[simulatedPlayer.id] = pid;
 };
 
 const chatSpawnCommand = new Command();
