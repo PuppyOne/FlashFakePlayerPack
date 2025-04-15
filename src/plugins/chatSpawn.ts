@@ -6,7 +6,7 @@ import { UninitializedError } from '../core/simulated-player';
 
 const overworld = world.getDimension("overworld");
 
-const spawnAndRegisterSimulatedPlayer = (entity: Player | undefined, location: Vector3, dimension: Dimension, nameTag?: string): void => {
+const addSimulatedPlayer = (entity: Player | undefined, location: Vector3, dimension: Dimension, nameTag?: string): void => {
     try {
         simulatedPlayerManager.add({ name: nameTag, dimension, location });
     } catch (e) {
@@ -23,7 +23,7 @@ const chatSpawnCommand = new Command();
 
 // 假人生成
 chatSpawnCommand.register(({ args }) => args.length === 0, ({ entity, location }) => {
-    spawnAndRegisterSimulatedPlayer(entity, location, location.dimension);
+    addSimulatedPlayer(entity, location, location.dimension);
 });
 
 // 假人生成 批量 count
@@ -33,12 +33,12 @@ chatSpawnCommand.register(({ args }) => args[0] === '批量', ({ args: [, countS
 
     let count = Number(countString);
     while (count-- > 0)
-        spawnAndRegisterSimulatedPlayer(entity, location, location.dimension);
+        addSimulatedPlayer(entity, location, location.dimension);
 });
 
 // 假人生成 name
 chatSpawnCommand.register(({ args }) => args.length === 1, ({ args: [targetName], entity, location }) => {
-    spawnAndRegisterSimulatedPlayer(entity, location, location.dimension, targetName);
+    addSimulatedPlayer(entity, location, location.dimension, targetName);
 });
 
 // #56 参考：
@@ -84,7 +84,7 @@ chatSpawnCommand.register(
         }
         dimension ??= senderLocation.dimension ?? overworld;
 
-        spawnAndRegisterSimulatedPlayer(entity, location, dimension, nameTag);
+        addSimulatedPlayer(entity, location, dimension, nameTag);
     }
 );
 
