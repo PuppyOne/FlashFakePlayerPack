@@ -7,7 +7,6 @@ fishingHookDespawned.subscribe(event=>{
 
     if(debug)console.error('fishingHook Despawned')
     if(debug)world.sendMessage("me ##鱼钩销毁\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id)
-    // TODO:has
 
     const simulatedPlayer = simulatedPlayerManager.get(event.Fisher.id);
     if (!simulatedPlayer) return;
