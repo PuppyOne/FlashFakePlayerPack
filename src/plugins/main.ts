@@ -9,7 +9,7 @@ import {Dimension, LocationOutOfWorldBoundariesError, system, Vector3} from '@mi
 
 import { register } from '@minecraft/server-gametest'
 
-import { PIDManager } from '../core/pid/manager'
+import { PIDManager } from '../core/pid'
 import EventSignal from '../lib/xboyEvents/EventSignal'
 
 import { SIGN } from '../lib/xboyPackage/YumeSignEnum'
