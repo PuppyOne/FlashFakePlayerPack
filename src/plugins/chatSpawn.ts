@@ -1,7 +1,8 @@
 import type {SimulatedPlayer} from '@minecraft/server-gametest'
 
 import {
-    GetPID, initSucceed,
+    initSucceed,
+    pidManager,
     simulatedPlayers,
     spawned as spawnedEvent,
     spawnSimulatedPlayer,
@@ -19,7 +20,7 @@ const spawnAndRegisterSimulatedPlayer = (entity: Player | undefined, location: V
         return;
     }
 
-    const PID = GetPID();
+    const PID = pidManager.next();
     const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##');
     const simulatedPlayer: SimulatedPlayer = nameTag
         ? spawnSimulatedPlayerByNameTag(location, dimension, nameTag)
