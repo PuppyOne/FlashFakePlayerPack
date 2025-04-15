@@ -1,8 +1,6 @@
-import type {SimulatedPlayer} from '@minecraft/server-gametest'
-
 import { simulatedPlayerManager } from './main';
 import { type CommandInfo, commandManager, Command } from '../core/command'
-import { Dimension, Vector3, world, type Player } from '@minecraft/server'
+import { Dimension, LocationOutOfWorldBoundariesError, Vector3, world, type Player } from '@minecraft/server'
 import {xyz_dododo} from "../utils/xyz_dododo";
 import { UninitializedError } from '../core/simulated-player';
 
@@ -14,6 +12,8 @@ const spawnAndRegisterSimulatedPlayer = (entity: Player | undefined, location: V
     } catch (e) {
         if (e instanceof UninitializedError)
             entity?.sendMessage('[假人] 插件未初始化完成，请重试');
+        else if (e instanceof LocationOutOfWorldBoundariesError)
+            entity?.sendMessage('[假人] 位置非法，请在合法位置重试');
         else
             throw e;
     }
