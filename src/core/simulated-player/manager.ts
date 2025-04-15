@@ -25,14 +25,24 @@ export class SimulatedPlayerManager {
         this._test = test;
     }
 
+    private generateTestPosition(): Vector3 {
+        const z = 11451400 + Math.floor(Math.random() * 114514 * 19);
+        return {
+            x: 15000000,
+            y: 256,
+            z
+        };
+    }
+
     initialize() {//test 独立出单独方法？
         // 记分板PID初始化
         this.pidManager.initialize();
 
-        const z = 11451400 + Math.floor(Math.random() * 114514 * 19);
+        const { x, y, z } = this.generateTestPosition();
+
         system.run(() => {
             try {
-                overworld.runCommand(`execute positioned 15000000 256 ${z} run gametest run 我是云梦:假人`);
+                overworld.runCommand(`execute positioned ${x} ${y} ${z} run gametest run 我是云梦:假人`);
                 this._initialized = true;
             } catch (e) {
                 world.sendMessage('[模拟玩家] 报错了，我也不知道为什么' + e);
