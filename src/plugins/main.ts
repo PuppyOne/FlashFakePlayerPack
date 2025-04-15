@@ -66,8 +66,6 @@ let testWorldLocation : Vector3
 if(!world.structureManager.get('xboyMinemcSIM:void'))
     world.structureManager.createEmpty('xboyMinemcSIM:void', { x:1, y:1, z:1 }).saveToWorld()
 
-export const initialized : initializedEventSignal = new EventSignal<initializedEvent>()
-
 register('我是云梦', '假人', (test:Test) => {
     testWorldLocation = test.worldBlockLocation({ x:0, y:0, z:0 })
     testWorldLocation["worldBlockLocation"] = (v3:Vector3)=> test.worldBlockLocation(v3)
@@ -103,7 +101,6 @@ register('我是云梦', '假人', (test:Test) => {
         return simulatedPlayer
     }
 
-    initialized.trigger(null)
     initSucceed = true
     console.log('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”')
 })
