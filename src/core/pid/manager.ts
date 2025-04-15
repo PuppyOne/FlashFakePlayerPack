@@ -2,7 +2,7 @@ import { world } from '@minecraft/server';
 import type { PID } from './types';
 
 export class PIDManager {
-    constructor(private readonly initialValue: PID = 1 as PID) {}
+    constructor(private readonly initialValue: PID = 0 as PID) {}
 
     initialize(): void {
         if (!world.scoreboard.getObjective('##FlashPlayer##'))
