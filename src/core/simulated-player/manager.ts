@@ -34,7 +34,7 @@ export class SimulatedPlayerManager {
         };
     }
 
-    initialize() {//test 独立出单独方法？
+    initialize() {
         // 记分板PID初始化
         this.pidManager.initialize();
 
