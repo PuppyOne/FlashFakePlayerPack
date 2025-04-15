@@ -20,18 +20,18 @@ const spawnAndRegisterSimulatedPlayer = (entity: Player | undefined, location: V
         return;
     }
 
-    const PID = pidManager.next();
+    const pid = pidManager.next();
     const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##');
     const simulatedPlayer: SimulatedPlayer = nameTag
         ? spawnSimulatedPlayerByNameTag(location, dimension, nameTag)
-        : spawnSimulatedPlayer(location, dimension, PID);
+        : spawnSimulatedPlayer(location, dimension, pid);
 
 
-    simulatedPlayers[PID] = simulatedPlayer;
-    simulatedPlayers[simulatedPlayer.id] = PID;
+    simulatedPlayers[pid] = simulatedPlayer;
+    simulatedPlayers[simulatedPlayer.id] = pid;
 
-    spawnedEvent.trigger({ spawnedSimulatedPlayer: simulatedPlayer, PID });
-    __FlashPlayer__.setScore(simulatedPlayer.id, PID);
+    spawnedEvent.trigger({ spawnedSimulatedPlayer: simulatedPlayer, PID: pid });
+    __FlashPlayer__.setScore(simulatedPlayer.id, pid);
 };
 
 const chatSpawnCommand = new Command();
