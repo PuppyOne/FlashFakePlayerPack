@@ -4,7 +4,6 @@ import {
     initSucceed,
     pidManager,
     simulatedPlayers,
-    spawned as spawnedEvent,
     spawnSimulatedPlayer,
     spawnSimulatedPlayerByNameTag
 } from './main'
@@ -28,8 +27,6 @@ const spawnAndRegisterSimulatedPlayer = (entity: Player | undefined, location: V
 
     simulatedPlayers[pid] = simulatedPlayer;
     simulatedPlayers[simulatedPlayer.id] = pid;
-
-    spawnedEvent.trigger({ spawnedSimulatedPlayer: simulatedPlayer, PID: pid });
 };
 
 const chatSpawnCommand = new Command();

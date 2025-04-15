@@ -67,7 +67,6 @@ if(!world.structureManager.get('xboyMinemcSIM:void'))
     world.structureManager.createEmpty('xboyMinemcSIM:void', { x:1, y:1, z:1 }).saveToWorld()
 
 export const initialized : initializedEventSignal = new EventSignal<initializedEvent>()
-export const spawned : spawnedEventSignal = new EventSignal<spawnedEvent>()
 
 register('我是云梦', '假人', (test:Test) => {
     testWorldLocation = test.worldBlockLocation({ x:0, y:0, z:0 })
