@@ -1,4 +1,4 @@
-import { LocationOutOfWorldBoundariesError, system, world, type Dimension, type Entity, type Vector3 } from "@minecraft/server";
+import { system, world, type Dimension, type Entity, type Vector3 } from "@minecraft/server";
 import { PIDManager, type PID } from "../pid";
 import { Test, type SimulatedPlayer } from "@minecraft/server-gametest";
 import SIGN from "../../constants/YumeSignEnum";
@@ -66,12 +66,8 @@ export class SimulatedPlayerManager {
             //@ts-ignore
             simulatedPlayer.teleport(location, { dimension });
         } catch (e) {
-            if (e instanceof LocationOutOfWorldBoundariesError) {
-                console.warn('[模拟玩家] 有东西尝试在非法位置生成假人，已阻止');
-                simulatedPlayer.disconnect();
-            } else {
-                throw e;
-            }
+            simulatedPlayer.disconnect();
+            throw e;
         }
 
         return simulatedPlayer;
