@@ -1,5 +1,5 @@
 // -302 65 -1556
-import tpsShower  from '../features/tpsShower';
+import tpsShower  from '../core/tps/tpsShower';
 
 
 import "../main.js";
