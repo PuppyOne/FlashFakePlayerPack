@@ -13,18 +13,9 @@ import { SimulatedPlayerManager } from './core/simulated-player';
 
 const maxTicks = 20*60*60*24*365
 
-let randomTickSpeed = 1
-let doDayLightCycle = true
-let doMobSpawning = true
+const { randomTickSpeed, doDayLightCycle, doMobSpawning } = world.gameRules;
 
-{
-
-    randomTickSpeed = world.gameRules.randomTickSpeed
-    doDayLightCycle = world.gameRules.doDayLightCycle
-    doMobSpawning   = world.gameRules.doMobSpawning
-
-    world.sendMessage('[模拟玩家] 随机刻->'+randomTickSpeed+'时间->'+doDayLightCycle+'生物生成->'+doMobSpawning)
-}
+world.sendMessage('[模拟玩家] 随机刻->' + randomTickSpeed + '时间->' + doDayLightCycle + '生物生成->' + doMobSpawning);
 //  ?
 
 let testWorldLocation : Vector3
