@@ -44,7 +44,7 @@ const breaks = (/*awa:awa='awa'*/)=>
         if (!block) return
 
         if (block.isValid && !block.isLiquid && !block.isAir){
-            man.breakBlock(Vector_subtract(block, testManager.testLocation))
+            man.breakBlock(testManager.test.relativeBlockLocation(block))
         }
     })
 
