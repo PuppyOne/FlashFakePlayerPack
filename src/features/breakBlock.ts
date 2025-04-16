@@ -27,9 +27,6 @@ breakBlockCommand.register(({ args }) => args.length === 0, ({ entity, isEntity 
 });
 commandManager.registerCommand(['假人挖掘', '假人摧毁'], breakBlockCommand);
 
-const Vector_subtract = ({x,y,z}:Vector3, {x:u,y:v,z:w}:Vector3)=>({x:x-u,y:y-v,z:z-w})
-const Vector_addition = ({x,y,z}:Vector3, {x:u,y:v,z:w}:Vector3)=>({x:x+u,y:y+v,z:z+w})
-const Vector_multiplication_dot = ({x,y,z}:Vector3, u:number)=>({x:x*u,y:y*u,z:z*u})
 
 // type awa = 'awa'
 
