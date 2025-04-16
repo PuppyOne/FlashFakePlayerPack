@@ -20,21 +20,12 @@ breakBlockCommand.register(({ args }) => args.length === 0, ({ entity, isEntity 
     } 
 
     SimPlayer.addTag(SIGN.AUTO_BREAKBLOCK_SIGN)
-
-    // console.error('[假人]内置插件'+'假人挖掘'+'执行成功')
-
 });
 commandManager.registerCommand(['假人挖掘', '假人摧毁'], breakBlockCommand);
 
-
-// type awa = 'awa'
-
 // task
-const breaks = (/*awa:awa='awa'*/)=>
+const breaks = ()=>
     world.getPlayers({tags:[SIGN.AUTO_BREAKBLOCK_SIGN]}).forEach( async SimPlayer => {
-        // getHeadLocation
-        // getViewDirection
-        // 这是一会要用到的妙妙工具
         const man = <SimulatedPlayer><unknown>SimPlayer
         const block =  man.getBlockFromViewDirection({maxDistance:6})?.block
         if (!block) return
@@ -44,6 +35,6 @@ const breaks = (/*awa:awa='awa'*/)=>
         }
     })
 
-system.runInterval(breaks,0) // 2 + 0 = 0
+system.runInterval(breaks,0) 
 
 // console.error('[假人]内置插件'+commandName+'加载成功')
