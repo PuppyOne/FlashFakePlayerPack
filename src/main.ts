@@ -3,8 +3,6 @@ import { Vector3 } from '@minecraft/server';
 import { register } from '@minecraft/server-gametest'
 import { world } from '@minecraft/server'
 
-// import './plugins/noFlashDoor' // pig
-
 import './features'
 
 import {playerMove} from "./lib/xboyEvents/move";
