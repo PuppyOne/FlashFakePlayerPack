@@ -39,10 +39,6 @@ register('我是云梦', '假人', (test:Test) => {
 })
 .maxTicks(maxTicks)
 .structureName('xboyMinemcSIM:void');
-// .maxTicks(2)
-// .maxAttempts(tickWaitTimes)
-// .requiredSuccessfulAttempts(tickWaitTimes)
-// .padding(0)
 
 export const simulatedPlayerManager=new SimulatedPlayerManager();
 // @ts-ignore
