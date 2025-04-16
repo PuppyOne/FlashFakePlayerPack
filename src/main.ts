@@ -52,24 +52,4 @@ const broadcast = () => {
 };
 playerMove.subscribe(broadcast);
 
-    // initialized.subscribe(()=> console.error('[模拟玩家]初始化完毕，加载内置插件') )
-    // initialized.subscribe(()=>
-    // {
-    // }
-    //     // 'test',
-    //     // 'chatSpawn',
-    //     // 'command',
-    //     // 'breakBlock',
-    //     // 'youAreMine',
-    //     // 'help',
-    //     // 'task',
-    //     // 'gui',
-    //     // 'autoFishing',
-    //     // 'killedBySimPlayer',
-    //     // 'setting',
-    //     // 'Deja Vu Yan Returns',
-    //
-    // )
-
 export { testWorldLocation }
-
