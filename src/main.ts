@@ -41,8 +41,8 @@ register('我是云梦', '假人', (test:Test) => {
 .structureName('xboyMinemcSIM:void');
 
 export const simulatedPlayerManager=new SimulatedPlayerManager();
-// @ts-ignore
-(world.afterEvents.worldInitialize ?? world.afterEvents['worldLoad']).subscribe(()=>{
+
+world.afterEvents.worldLoad.subscribe(()=>{
     simulatedPlayerManager.initialize();
 })
 
