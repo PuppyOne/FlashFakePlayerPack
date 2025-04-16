@@ -24,8 +24,6 @@ if(!world.structureManager.get('xboyMinemcSIM:void'))
 
 register('我是云梦', '假人', (test:Test) => {
     testWorldLocation = test.worldBlockLocation({ x:0, y:0, z:0 })
-    testWorldLocation["worldBlockLocation"] = (v3:Vector3)=> test.worldBlockLocation(v3)
-
 
     world.gameRules.randomTickSpeed = randomTickSpeed
     world.gameRules.doDayLightCycle = doDayLightCycle
