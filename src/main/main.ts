@@ -1,8 +1,8 @@
 // -302 65 -1556
-import tpsShower  from '../plugins/tpsShower';
+import tpsShower  from '../core/tps/tpsShower';
 
 
-import "../plugins/main.js";
+import "../main.js";
 import { world, system } from "@minecraft/server";
 const overworld = world.getDimension("overworld");
 const nether = world.getDimension("nether");
