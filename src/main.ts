@@ -16,7 +16,7 @@ const { randomTickSpeed, doDayLightCycle, doMobSpawning } = world.gameRules;
 world.sendMessage('[模拟玩家] 随机刻->' + randomTickSpeed + '时间->' + doDayLightCycle + '生物生成->' + doMobSpawning);
 //  ?
 
-let testWorldLocation : Vector3
+export let testWorldLocation : Vector3
 
 
 if(!world.structureManager.get('xboyMinemcSIM:void'))
@@ -49,5 +49,3 @@ const broadcast = () => {
     playerMove.unsubscribe(broadcast);
 };
 playerMove.subscribe(broadcast);
-
-export { testWorldLocation }
