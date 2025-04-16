@@ -5,7 +5,7 @@ import { world } from '@minecraft/server'
 
 // import './plugins/noFlashDoor' // pig
 
-import './plugins'
+import './features'
 
 import {playerMove} from "./lib/xboyEvents/move";
 import './triggers'
