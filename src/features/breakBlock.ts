@@ -1,5 +1,4 @@
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
-import {Dimension, Player, Vector3} from '@minecraft/server'
 
 import { Command, commandManager } from '../core/command';
 import { getSimPlayer } from '../core/queries/Util'
