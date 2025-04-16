@@ -11,7 +11,7 @@ import {playerMove} from "./lib/xboyEvents/move";
 import './triggers'
 import { SimulatedPlayerManager } from './core/simulated-player';
 
-const tickWaitTimes = 20*60*60*24*365
+const maxTicks = 20*60*60*24*365
 
 let randomTickSpeed = 1
 let doDayLightCycle = true
@@ -46,7 +46,7 @@ register('我是云梦', '假人', (test:Test) => {
 
     console.log('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”')
 })
-.maxTicks(tickWaitTimes)
+.maxTicks(maxTicks)
 .structureName('xboyMinemcSIM:void');
 // .maxTicks(2)
 // .maxAttempts(tickWaitTimes)
