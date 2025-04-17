@@ -1,8 +1,6 @@
-import { type Player, system,type Vector3, world} from "@minecraft/server"
+import { type Player, system,world} from "@minecraft/server"
 import EventSignal from "./EventSignal";
 import type { playerReadyAfterEventSignal } from "../../@types/globalThis";
-
-
 
 // EventSignal
 export const playerReady:playerReadyAfterEventSignal = new EventSignal<undefined>()
