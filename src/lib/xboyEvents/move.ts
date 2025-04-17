@@ -39,5 +39,5 @@ const update = ()=>{
 
 // export default  playerMove
 
-system.runInterval(update,0)
+system.runInterval(update,4)
 
