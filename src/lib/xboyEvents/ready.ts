@@ -6,7 +6,6 @@ import type { playerReadyAfterEventSignal } from "../../@types/globalThis";
 
 // EventSignal
 export const playerReady:playerReadyAfterEventSignal = new EventSignal<undefined>()
-// console.error(JSON.stringify(world.getAllPlayers()[0].getViewDirection()))
 
 const playerViewYMap = new Map<Player, number>()
 
@@ -32,7 +31,5 @@ const update = ()=>{
               system.clearRun(id)
           })
 }
-
-// export default  playerMove
 
 const id=system.runInterval(update,4)
