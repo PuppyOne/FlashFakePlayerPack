@@ -20,8 +20,6 @@ world.afterEvents.worldLoad.subscribe(() => {
     testManager.initialize();
 });
 
-const broadcast = () => {
+playerMove.subscribe(() => {
     world.sendMessage('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”');
-    playerMove.unsubscribe(broadcast);
-};
-playerMove.subscribe(broadcast);
+});
