@@ -7,17 +7,18 @@ export const playerReady: playerReadyAfterEventSignal = new EventSignal<undefine
 
 const playerViewYMap = new Map<Player, number>();
 
-const update = () => {
+const update = (): void => {
     const playerList = world.getAllPlayers();
     playerList.forEach(player => {
         const { y: currentViewY } = player.getViewDirection();
 
         const storedViewY = playerViewYMap.get(player);
 
-        if (storedViewY === undefined)
+        if (storedViewY === undefined) {
             // set to Map
-            return playerViewYMap.set(player, currentViewY);
-
+            playerViewYMap.set(player, currentViewY);
+            return;
+        }
         if (storedViewY == currentViewY)
             // nothing
             return;
