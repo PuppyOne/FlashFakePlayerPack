@@ -238,7 +238,7 @@ export class projectileFiredEventSignal {
     trigger(projectileFired: projectileFiredEvent): void;
     protected constructor();
 }
-export class playerMoveAfterEventSignal {
+export class playerReadyAfterEventSignal {
     subscribe(undefined): void;
     unsubscribe(undefined): void;
     trigger(undefined): void;

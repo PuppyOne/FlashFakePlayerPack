@@ -1,11 +1,11 @@
 import { type Player, system,type Vector3, world} from "@minecraft/server"
 import EventSignal from "./EventSignal";
-import type { playerMoveAfterEventSignal } from "../../@types/globalThis";
+import type { playerReadyAfterEventSignal } from "../../@types/globalThis";
 
 
 
 // EventSignal
-export const playerMove:playerMoveAfterEventSignal = new EventSignal<undefined>()
+export const playerReady:playerReadyAfterEventSignal = new EventSignal<undefined>()
 // console.error(JSON.stringify(world.getAllPlayers()[0].getViewDirection()))
 
 const playerViewYMap = new Map<Player, number>()
@@ -27,7 +27,7 @@ const update = ()=>{
             
             // update to Map && Event-trigger
             playerViewYMap.set(player, currentViewY)
-              playerMove.trigger(undefined)
+              playerReady.trigger(undefined)
 
               system.clearRun(id)
           })
