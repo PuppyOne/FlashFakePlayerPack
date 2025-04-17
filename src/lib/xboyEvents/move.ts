@@ -34,10 +34,11 @@ const update = ()=>{
               playerInfo.set(player,{location,viewDirection,flash})
               const {location:locationBefore,viewDirection:viewDirectionBefore} = playerInfo.get(player)
               playerMove.trigger({location, viewDirection,locationBefore,viewDirectionBefore})
+         
+              system.clearRun(id)
           })
 }
 
 // export default  playerMove
 
-system.runInterval(update,4)
-
+const id=system.runInterval(update,4)
