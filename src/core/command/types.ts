@@ -16,4 +16,4 @@ export interface CommandInfo {
 
 export type CommandInfoNoArgs = Omit<CommandInfo, "args" | "prefix">;
 
-export type CommandHandler = (cmdInfo: CommandInfo) => void;
+export type CommandHandler = (commandInfo: CommandInfo) => void;
