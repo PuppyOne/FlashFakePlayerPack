@@ -13,7 +13,7 @@ world.beforeEvents.chatSend.subscribe(({message, sender}) => {
         } catch (e) {
             if (!(e instanceof CommandError)) {
                 console.error(e);
-                world.sendMessage(Messages.UnhandledException);
+                world.sendMessage(Messages.UNHANDLED_EXCEPTION);
             }
         }
     });
