@@ -1,4 +1,5 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
     entry: './src/main/preload.ts', // 入口文件
@@ -21,9 +22,7 @@ module.exports = {
         new CleanWebpackPlugin()
     ],
     resolve: {
-        alias: {
-            '@': __dirname + '/src',
-        },
+        plugins: [new TsconfigPathsPlugin()],
         extensions: ['.ts', '.js'],
     },
     module: {
