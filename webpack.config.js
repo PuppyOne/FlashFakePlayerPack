@@ -8,9 +8,9 @@ module.exports = {
         path: __dirname + '/scripts/main', // 输出路径
     },
     target: 'es2020', // 指定目标环境为Node.js
-    mode: 'production', 
-    experiments : {
-        outputModule:true
+    mode: 'production',
+    experiments: {
+        outputModule: true,
     },
     externalsType: 'module',
     externals: {
@@ -19,7 +19,7 @@ module.exports = {
         '@minecraft/server-gametest': 'module @minecraft/server-gametest',
     },
     plugins: [
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
     ],
     resolve: {
         plugins: [new TsconfigPathsPlugin()],
@@ -27,12 +27,11 @@ module.exports = {
     },
     module: {
         rules: [
-          {
-            test: /\.ts$/,
-            use: 'ts-loader',
-            exclude: /node_modules/,
-          },
+            {
+                test: /\.ts$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            },
         ],
-      },
-    
+    },
 };
