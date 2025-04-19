@@ -18,3 +18,5 @@ export * from './inventory/recycle';
 
 export * from './behaviors/behaviors';
 export * from './behaviors/breakBlock';
+
+export * from './tps/indicator'
