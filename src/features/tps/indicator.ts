@@ -5,6 +5,8 @@ import { playerReady } from "../events/player-ready";
 
 const TPS_TAG = 'tps';
 
+const EVENTS: { subscribe: (...args: any) => void; }[] = [world.afterEvents.playerJoin, world.afterEvents.playerLeave, playerReady];
+
 const tpsMonitor = new TPSMonitor();
 
 tpsMonitor.tpsUpdate.subscribe(({ tps }) => {
@@ -40,8 +42,4 @@ const autoSwitchTPS = (): void => {
         tpsMonitor.off();
 };
 
-world.afterEvents.playerJoin.subscribe(autoSwitchTPS);
-
-world.afterEvents.playerLeave.subscribe(autoSwitchTPS);
-
-playerReady.subscribe(autoSwitchTPS);
+EVENTS.forEach(event => event.subscribe(autoSwitchTPS));
