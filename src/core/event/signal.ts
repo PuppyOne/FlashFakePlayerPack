@@ -1,16 +1,16 @@
 type EventListener<T> = (event: T) => void;
 
 export default class EventSignal<T = void> {
-    listeners = new Set<EventListener<T>>()
+    listeners = new Set<EventListener<T>>();
     subscribe(listener: EventListener<T>): EventListener<T> {
-        this.listeners.add(listener)
-        return listener
+        this.listeners.add(listener);
+        return listener;
     }
     unsubscribe(listener: EventListener<T>): void {
-        this.listeners.delete(listener)
+        this.listeners.delete(listener);
     }
     trigger(event: T): void {
-        this.listeners.forEach((listener) => listener(event))
+        this.listeners.forEach((listener) => listener(event));
     }
 }
 
