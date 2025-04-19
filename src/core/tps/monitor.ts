@@ -25,6 +25,10 @@ export class TPSMonitor {
         return this.calculatedTPS;
     }
 
+    get isRunning(): boolean {
+        return this.runId !== undefined;
+    }
+
     private update(): void {
         this.tpsCount++;
 
