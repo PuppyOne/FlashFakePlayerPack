@@ -1,12 +1,11 @@
 import { system, world } from "@minecraft/server";
 import { TPSMonitor } from "../../core/tps";
 import { commandManager } from "../../core/command";
+import { playerReady } from "../events/player-ready";
 
 const TPS_TAG = 'tps';
 
 const tpsMonitor = new TPSMonitor();
-
-tpsMonitor.on();
 
 system.runInterval(() => {
     world.getPlayers({ tags: [TPS_TAG] }).forEach(player => {
@@ -18,10 +17,31 @@ commandManager.registerCommand('tps开', ({ entity }) => {
     if (!entity) return;
 
     entity.addTag(TPS_TAG);
+
+    autoSwitchTPS();
 });
 
 commandManager.registerCommand('tps关', ({ entity }) => {
     if (!entity) return;
 
     entity.removeTag(TPS_TAG);
+
+    autoSwitchTPS();
 });
+
+const checkIfRequireTPS = (): boolean => {
+    return world.getPlayers({ tags: [TPS_TAG] }).length > 0;
+};
+
+const autoSwitchTPS = (): void => {
+    if (checkIfRequireTPS())
+        tpsMonitor.on();
+    else
+        tpsMonitor.off();
+};
+
+world.afterEvents.playerJoin.subscribe(autoSwitchTPS);
+
+world.afterEvents.playerLeave.subscribe(autoSwitchTPS);
+
+playerReady.subscribe(autoSwitchTPS);
