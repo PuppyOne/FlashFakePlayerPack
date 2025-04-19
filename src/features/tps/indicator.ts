@@ -1,4 +1,4 @@
-import { system, world } from "@minecraft/server";
+import { world } from "@minecraft/server";
 import { TPSMonitor } from "../../core/tps";
 import { commandManager } from "../../core/command";
 import { playerReady } from "../events/player-ready";
@@ -7,9 +7,9 @@ const TPS_TAG = 'tps';
 
 const tpsMonitor = new TPSMonitor();
 
-system.runInterval(() => {
+tpsMonitor.tpsUpdate.subscribe(({ tps }) => {
     world.getPlayers({ tags: [TPS_TAG] }).forEach(player => {
-        player.onScreenDisplay.setActionBar(`§e§lTPS:§3${tpsMonitor.tps}`);
+        player.onScreenDisplay.setActionBar(`§e§lTPS:§3${tps}`);
     });
 });
 

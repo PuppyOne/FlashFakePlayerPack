@@ -1,10 +1,14 @@
 import { system } from "@minecraft/server";
+import EventSignal from "../event/signal";
+import type { TPSUpdateEvent } from "./types";
 
 export class TPSMonitor {
     private calculatedTPS: number = 0;
     private tpsCount: number = 0;
     private currentSeconds: number | undefined;
     private runId: number | undefined;
+
+    readonly tpsUpdate = new EventSignal<TPSUpdateEvent>();
 
     on(): boolean {
         if (this.runId) return false;
@@ -37,5 +41,10 @@ export class TPSMonitor {
         this.currentSeconds = new Date().getSeconds();
         this.calculatedTPS = this.tpsCount;
         this.tpsCount = 0;
+
+        this.tpsUpdate.trigger({
+            tps: this.tps,
+            tpsMonitor: this
+        });
     }
 }
