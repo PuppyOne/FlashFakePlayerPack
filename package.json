@@ -1,9 +1,9 @@
 {
   "private": true,
   "scripts": {
-    "dev": "cd . && tsc -w -outDir ./scripts/",
-    "webpackTest": "cd . && tsc && webpack",
-    "build": "cd . && tsc && webpack && node packer.js"
+    "dev": "cd . && webpack --watch",
+    "webpackTest": "cd . && webpack",
+    "build": "cd . && webpack && node packer.js"
   },
   "devDependencies": {
     "@minecraft/server": "2.0.0-beta.1.21.80-preview.22",
