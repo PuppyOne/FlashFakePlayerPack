@@ -5,7 +5,7 @@ import { playerReady } from "@/features/events/player-ready";
 
 const TPS_TAG = 'tps';
 
-const EVENTS: { subscribe: (...args: any) => void; }[] = [world.afterEvents.playerJoin, world.afterEvents.playerLeave, playerReady];
+const EVENTS: { subscribe: (...args: any) => void; }[] = [world.afterEvents.playerSpawn, world.afterEvents.playerLeave, playerReady];
 
 const tpsMonitor = new TPSMonitor();
 
@@ -32,6 +32,8 @@ commandManager.registerCommand('tps关', ({ entity }) => {
 });
 
 const checkIfRequireTPS = (): boolean => {
+    console.log(world.getPlayers({ tags: [TPS_TAG] }).length);
+    
     return world.getPlayers({ tags: [TPS_TAG] }).length > 0;
 };
 
