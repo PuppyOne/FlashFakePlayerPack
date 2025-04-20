@@ -32,8 +32,6 @@ commandManager.registerCommand('tps关', ({ entity }) => {
 });
 
 const checkIfRequireTPS = (): boolean => {
-    console.log(world.getPlayers({ tags: [TPS_TAG] }).length);
-    
     return world.getPlayers({ tags: [TPS_TAG] }).length > 0;
 };
 
