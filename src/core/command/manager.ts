@@ -139,6 +139,11 @@ class CommandManager {
 
     /**
      * 已注册的所有命令前缀。
+     * 
+     * @example
+     * ```typescript
+     * console.log(commandManager.prefixes); // ['假人生成', '假人创建']
+     * ```
      */
     get prefixes(): string[] {
         return Array.from(this.commandMap.keys());
