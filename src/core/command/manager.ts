@@ -138,9 +138,7 @@ class CommandManager {
     }
 
     /**
-     * 获取已注册的所有命令前缀。
-     * 
-     * @returns 返回一个字符串数组，包含所有已注册的命令前缀。
+     * 已注册的所有命令前缀。
      */
     get prefixes(): string[] {
         return Array.from(this.commandMap.keys());
