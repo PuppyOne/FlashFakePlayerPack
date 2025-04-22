@@ -1,9 +1,10 @@
 import {
-    DimensionLocation,
     Player,
     ScriptEventCommandMessageAfterEvent,
     ScriptEventSource,
-    system
+    system,
+    type Dimension,
+    type Vector3
 } from "@minecraft/server";
 import {
     commandManager,
@@ -24,18 +25,16 @@ class CannotGetLocationError extends Error {
 }
 
 
-function getSourceLocation(e: ScriptEventCommandMessageAfterEvent): DimensionLocation {
+function getSourceLocation(e: ScriptEventCommandMessageAfterEvent): { location: Vector3; dimension: Dimension; } {
+    const getRequiredProp = <T>(getter: () => T | undefined) => {
+        const value = getter();
+        if (!value) throw new CannotGetLocationError('[模拟玩家] 无法获取位置');
+        return value;
+    };
+
     return {
-        ...e.sourceEntity?.location ?? e.sourceBlock?.location ?? (
-            () => {
-                throw new CannotGetLocationError('[模拟玩家] 无法获取位置');
-            }
-        )(),
-        dimension: e.sourceEntity?.dimension ?? e.sourceBlock?.dimension ?? (
-            () => {
-                throw new CannotGetLocationError('[模拟玩家] 无法获取位置');
-            }
-        )(),
+        location: getRequiredProp(() => e.sourceEntity?.location ?? e.sourceBlock?.location),
+        dimension: getRequiredProp(() => e.sourceEntity?.dimension ?? e.sourceBlock?.dimension)
     };
 }
 
@@ -59,9 +58,11 @@ function parseScriptEventString(
 }
 
 function getCommandInfoNoArgs(e: ScriptEventCommandMessageAfterEvent): CommandInfoNoArgs {
+    const { location, dimension } = getSourceLocation(e);
     return {
-        entity: e.sourceEntity instanceof Player ? e.sourceEntity : undefined,
-        location: getSourceLocation(e),
+        player: e.sourceEntity instanceof Player ? e.sourceEntity : undefined,
+        location: location,
+        dimension: dimension,
         isEntity: e.sourceType === ScriptEventSource.Entity,
     };
 }
@@ -76,8 +77,8 @@ system.afterEvents.scriptEventReceive.subscribe(e => {
     } catch (e) {
         console.error(e);
         if (e instanceof CommandNotFoundError)
-            commandInfoNoArgs?.entity?.sendMessage(`[模拟玩家] 命令错误，找不到命令: ${e.commandName}`);
+            commandInfoNoArgs?.player?.sendMessage(`[模拟玩家] 命令错误，找不到命令: ${e.commandName}`);
         else
-            commandInfoNoArgs?.entity?.sendMessage(Messages.UNHANDLED_EXCEPTION);
+            commandInfoNoArgs?.player?.sendMessage(Messages.UNHANDLED_EXCEPTION);
     }
 }, { namespaces });

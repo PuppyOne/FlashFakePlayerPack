@@ -1,21 +1,22 @@
-import type { Player, DimensionLocation } from "@minecraft/server";
+import type { Dimension, Player, Vector3 } from "@minecraft/server";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
 export interface Executable {
-    execute: (commandInfo: CommandInfo) => void;
+    execute: (commandInfo: Context) => void;
 }
 
-export interface CommandInfo {
+export interface Context {
     prefix: string;
     args: string[];
-    entity?: Player;
-    location?: DimensionLocation;
+    player?: Player;
+    location?: Vector3;
+    dimension?: Dimension;
     isEntity?: boolean;
-    sim?: SimulatedPlayer;
+    simulatedPlayer?: SimulatedPlayer;
 } // | Player | Dimension | Entity
 
-export type CommandInfoNoArgs = Omit<CommandInfo, "args" | "prefix">;
+export type CommandInfoNoArgs = Omit<Context, "args" | "prefix">;
 
-export type CommandHandler = (commandInfo: CommandInfo) => void;
+export type CommandHandler = (commandInfo: Context) => void;
 
-export type CommandCondition = (commandInfo: CommandInfo) => boolean
+export type CommandCondition = (commandInfo: Context) => boolean;

@@ -126,7 +126,7 @@ class CommandManager {
 
         // ding~
         // 都有?.了你还用&&
-        commandInfoNoArgs?.entity?.playSound?.('note.bell');
+        commandInfoNoArgs?.player?.playSound?.('note.bell');
 
         command({ prefix, args, ...commandInfoNoArgs });
     }
