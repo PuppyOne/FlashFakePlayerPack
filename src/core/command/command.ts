@@ -1,17 +1,4 @@
-import type {
-    Dimension,
-    DimensionLocation,
-    Vector3
-} from "@minecraft/server";
-import type { Executable, CommandInfo, CommandCondition, CommandHandler } from "./types";
-
-export function getLocationFromEntityLike(entity: {
-    location: Vector3; dimension: Dimension;
-}): DimensionLocation {
-    return {
-        ...entity.location, dimension: entity.dimension
-    };
-}
+import type { Executable, Context, CommandCondition, CommandHandler } from "./types";
 
 export class Command implements Executable {
     private conditionsHandlers = new Map<CommandCondition, CommandHandler[]>();
@@ -57,7 +44,7 @@ export class Command implements Executable {
      * 按命令注册先后顺序，
      * 只有第一个满足条件的 handler 会被执行。
      */
-    execute(commandInfo: CommandInfo): void {
+    execute(commandInfo: Context): void {
         for (const [condition, handlers] of this.conditionsHandlers)
             if (condition(commandInfo)) {
                 handlers.forEach(handler => handler(commandInfo));
