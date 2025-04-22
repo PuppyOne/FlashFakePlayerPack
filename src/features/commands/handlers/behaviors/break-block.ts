@@ -7,7 +7,7 @@ import { SIGN } from "@/constants";
 import { gameTestManager } from '@/core/gametest';
 
 const breakBlockCommand = new Command();
-breakBlockCommand.register(({ args }) => args.length === 0, ({ player, isEntity }) => {
+breakBlockCommand.use(({ args }) => args.length === 0, ({ player, isEntity }) => {
     if (!isEntity) {
         console.error('error not isEntity');
         return;
