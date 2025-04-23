@@ -5,9 +5,9 @@ import { simulatedPlayerManager } from '@/core/simulated-player';
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
 commandManager.add(['假人重生', '假人复活', '复活吧，我的爱人', '复活吧！我的爱人', '复活吧!我的爱人', '复活吧我的爱人'],
-    ({ player, isEntity, args: [simIndex] }) => {
+    ({ player, args: [simIndex] }) => {
 
-    if (!isEntity && simIndex === undefined) {
+    if (!player && simIndex === undefined) {
         console.error('error not isEntity')
         return
     }

@@ -11,7 +11,6 @@ export interface Context {
     player?: Player;
     location?: Vector3;
     dimension?: Dimension;
-    isEntity?: boolean;
     simulatedPlayer?: SimulatedPlayer;
 } // | Player | Dimension | Entity
 

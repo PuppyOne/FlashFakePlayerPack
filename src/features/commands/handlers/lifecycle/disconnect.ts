@@ -4,10 +4,11 @@ import { getSimPlayer } from "@/core/queries";
 import { simulatedPlayerManager } from '@/core/simulated-player';
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
-commandManager.add(['假人销毁','假人移除','假人清除'], ({player,isEntity,args:[simIndex],simulatedPlayer: sim}) => {
+commandManager.add(['假人销毁','假人移除','假人清除'], ({player,args:[simIndex],simulatedPlayer: sim}) => {
     if(sim)return simulatedPlayerManager.remove(sim);
 
-    if(!isEntity) {
+    // TODO: 支持scriptevent
+    if(!player) {
         console.error('error not isEntity')
         return
     }
@@ -15,7 +16,7 @@ commandManager.add(['假人销毁','假人移除','假人清除'], ({player,isEn
         const simulatedPlayer:SimulatedPlayer = getSimPlayer.fromView(player)
         if(!simulatedPlayer)return player.sendMessage("§e§l-面前不存在模拟玩家")
 
-        commandManager.run('假人背包清空', [], { player, isEntity, simulatedPlayer: simulatedPlayer ,location: player.location, dimension: player.dimension})
+        commandManager.run('假人背包清空', [], { player, simulatedPlayer: simulatedPlayer ,location: player.location, dimension: player.dimension})
         player.sendMessage("§e§l-拜拜了您内")
         simulatedPlayerManager.remove(simulatedPlayer)
     }
@@ -28,7 +29,7 @@ commandManager.add(['假人销毁','假人移除','假人清除'], ({player,isEn
 
         if(!simulatedPlayer)return player.sendMessage("§e§l-不存在模拟玩家"+index)
 
-        commandManager.run('假人背包清空', [], { player, isEntity, simulatedPlayer: simulatedPlayer ,location: player.location, dimension: player.dimension})
+        commandManager.run('假人背包清空', [], { player, simulatedPlayer: simulatedPlayer ,location: player.location, dimension: player.dimension})
         player.sendMessage("§e§l-拜拜了您内")
         simulatedPlayerManager.remove(simulatedPlayer)
     }
