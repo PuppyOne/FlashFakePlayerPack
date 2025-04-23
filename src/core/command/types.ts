@@ -9,20 +9,20 @@ export interface Context {
     location?: Vector3;
     dimension?: Dimension;
     simulatedPlayer?: SimulatedPlayer;
-} // | Player | Dimension | Entity
+}
+
+export type BaseContext = Omit<Context, "args" | "prefix">;
 
 export interface Executable {
     execute: (commandInfo: Context) => void;
 }
 
-export type Middleware=(commandInfo: Context,next: Next) => void
+export type Stack = [...middlewares: Middleware[], handler: Handler];
 
-export type Next=()=>void
-
-export type Stack = [...middlewares: Middleware[], handler: Handler]
-
-export type BaseContext = Omit<Context, "args" | "prefix">;
+export type Middleware = (commandInfo: Context, next: Next) => void;
 
 export type Handler = (commandInfo: Context) => void;
+
+export type Next = () => void;
 
 export type Condition = (commandInfo: Context) => boolean;
