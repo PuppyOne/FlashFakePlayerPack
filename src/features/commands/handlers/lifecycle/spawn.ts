@@ -95,7 +95,7 @@ chatSpawnCommand.use(({ args, player }) => {
     player?.sendMessage(`[模拟玩家] 命令错误，期待3个坐标数字(x y z)或1个名称字符串("名称")，得到个数为${args.length}。带空格名称需用引号包裹`);
 });
 
-commandManager.add(['假人生成', '假人创建', 'ffpp'], chatSpawnCommand);
+commandManager.use(['假人生成', '假人创建', 'ffpp'], chatSpawnCommand);
 
 // world.afterEvents.chatSend.subscribe(({message, sender})=>{
 //     const cmdArgs = CommandRegistry.parse(message)

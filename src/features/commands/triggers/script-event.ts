@@ -9,7 +9,7 @@ import {
 import {
     commandManager,
     CommandNotFoundError,
-    type CommandInfoNoArgs
+    type BaseContext
 } from "@/core/command";
 import { Messages } from "@/constants";
 

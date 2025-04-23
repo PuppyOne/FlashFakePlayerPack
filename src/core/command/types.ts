@@ -1,15 +1,6 @@
 import type { Dimension, Player, Vector3 } from "@minecraft/server";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
-export interface Executable {
-    execute: (commandInfo: Context) => void;
-}
-
-export type Middleware=(commandInfo: Context,next: Next) => void
-
-export type Next=()=>void
-
-export type Stack = [...middlewares: Middleware[], handler: CommandHandler]
 
 export interface Context {
     prefix: string;
@@ -21,8 +12,18 @@ export interface Context {
     simulatedPlayer?: SimulatedPlayer;
 } // | Player | Dimension | Entity
 
-export type CommandInfoNoArgs = Omit<Context, "args" | "prefix">;
+export interface Executable {
+    execute: (commandInfo: Context) => void;
+}
 
-export type CommandHandler = (commandInfo: Context) => void;
+export type Middleware=(commandInfo: Context,next: Next) => void
 
-export type CommandCondition = (commandInfo: Context) => boolean;
+export type Next=()=>void
+
+export type Stack = [...middlewares: Middleware[], handler: Handler]
+
+export type BaseContext = Omit<Context, "args" | "prefix">;
+
+export type Handler = (commandInfo: Context) => void;
+
+export type Condition = (commandInfo: Context) => boolean;

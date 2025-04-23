@@ -3,7 +3,7 @@ import { getSimPlayer } from "@/core/queries";
 import { EquipmentSlot } from "@minecraft/server";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
-commandManager.add(['假人资源回收','假人背包清空','假人爆金币'], ({player,isEntity,simulatedPlayer: sim})=>{
+commandManager.use(['假人资源回收','假人背包清空','假人爆金币'], ({player,isEntity,simulatedPlayer: sim})=>{
     if(!isEntity && !sim) {
         console.error('error not isEntity')
         return

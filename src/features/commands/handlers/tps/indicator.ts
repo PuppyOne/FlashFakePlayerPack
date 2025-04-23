@@ -15,7 +15,7 @@ tpsMonitor.tpsUpdate.subscribe(({ tps }) => {
     });
 });
 
-commandManager.add('tps开', ({ player }) => {
+commandManager.use('tps开', ({ player }) => {
     if (!player) return;
 
     player.addTag(TPS_TAG);
@@ -23,7 +23,7 @@ commandManager.add('tps开', ({ player }) => {
     autoSwitchTPS();
 });
 
-commandManager.add('tps关', ({ player }) => {
+commandManager.use('tps关', ({ player }) => {
     if (!player) return;
 
     player.removeTag(TPS_TAG);

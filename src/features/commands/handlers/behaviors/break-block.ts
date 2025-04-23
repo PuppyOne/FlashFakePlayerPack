@@ -21,7 +21,7 @@ breakBlockCommand.use(({ args }) => args.length === 0, ({ player, isEntity }) =>
 
     simulatedPlayer.addTag(SIGN.AUTO_BREAKBLOCK_SIGN);
 });
-commandManager.add(['假人挖掘', '假人摧毁'], breakBlockCommand);
+commandManager.use(['假人挖掘', '假人摧毁'], breakBlockCommand);
 
 // task
 const breaks = () =>

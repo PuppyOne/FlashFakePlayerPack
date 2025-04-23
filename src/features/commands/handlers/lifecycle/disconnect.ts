@@ -4,7 +4,7 @@ import { getSimPlayer } from "@/core/queries";
 import { simulatedPlayerManager } from '@/core/simulated-player';
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
-commandManager.add(['假人销毁','假人移除','假人清除'], ({player,isEntity,args:[simIndex],simulatedPlayer: sim}) => {
+commandManager.use(['假人销毁','假人移除','假人清除'], ({player,isEntity,args:[simIndex],simulatedPlayer: sim}) => {
     if(sim)return simulatedPlayerManager.remove(sim);
 
     if(!isEntity) {

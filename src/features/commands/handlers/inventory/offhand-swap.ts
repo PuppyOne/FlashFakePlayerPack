@@ -3,7 +3,7 @@ import { getSimPlayer } from "@/core/queries";
 import { EquipmentSlot } from "@minecraft/server";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
-commandManager.add('假人副手物品交换', ({player,simulatedPlayer: sim}) => {
+commandManager.use('假人副手物品交换', ({player,simulatedPlayer: sim}) => {
 
     const simulatedPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(player)
 
