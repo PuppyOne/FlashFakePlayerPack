@@ -3,9 +3,9 @@ import { getSimPlayer } from "@/core/queries";
 import { EquipmentSlot } from "@minecraft/server";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
-commandManager.use(['假人装备交换','假人交换装备'], ({player,isEntity,simulatedPlayer: sim}) => {
+commandManager.use(['假人装备交换','假人交换装备'], ({player,simulatedPlayer: sim}) => {
     const simulatedPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(player)
-    if(!isEntity && !sim)return
+    if(!player && !sim)return
 
     const s = simulatedPlayer.getComponent("minecraft:equippable") // SimPlayer
 

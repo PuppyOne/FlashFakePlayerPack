@@ -1,7 +1,6 @@
 import {
     Player,
     ScriptEventCommandMessageAfterEvent,
-    ScriptEventSource,
     system,
     type Dimension,
     type Vector3
@@ -63,7 +62,6 @@ function getCommandInfoNoArgs(e: ScriptEventCommandMessageAfterEvent): BaseConte
         player: e.sourceEntity instanceof Player ? e.sourceEntity : undefined,
         location: location,
         dimension: dimension,
-        isEntity: e.sourceType === ScriptEventSource.Entity,
     };
 }
 

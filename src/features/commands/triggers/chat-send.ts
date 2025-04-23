@@ -7,7 +7,6 @@ world.beforeEvents.chatSend.subscribe(({message, sender}) => {
         try {
             commandManager.run(message, {
                 player: sender,
-                isEntity: true,
                 location: sender.location,
                 dimension: sender.dimension
             });
