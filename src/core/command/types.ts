@@ -5,6 +5,12 @@ export interface Executable {
     execute: (commandInfo: Context) => void;
 }
 
+export type Middleware=(commandInfo: Context,next: Next) => void
+
+export type Next=()=>void
+
+export type Stack = [...middlewares: Middleware[], handler: CommandHandler]
+
 export interface Context {
     prefix: string;
     args: string[];

@@ -1,6 +1,6 @@
 import { parseCommandString } from "./command-parser";
 import { CommandAlreadyExistsError, CommandNotFoundError } from "./errors";
-import type { Executable, CommandHandler, CommandInfoNoArgs } from "./types";
+import type { Executable, CommandHandler, CommandInfoNoArgs, Middleware, Stack } from "./types";
 
 /**
  * @example
@@ -27,12 +27,12 @@ import type { Executable, CommandHandler, CommandInfoNoArgs } from "./types";
  * commandManager.add(['hello', 'hi'], command);
  * 
  * // Execute the Command
- * commandManager.execute('hello world');
+ * commandManager.run('hello world');
  * ```
  */
 class CommandManager {
     private parseCommandString = parseCommandString;
-    private commandMap = new Map<string, CommandHandler>();
+    private commandMap = new Map<string, Stack>();
 
     /**
      * 注册命令实例。
@@ -47,24 +47,27 @@ class CommandManager {
      * add(['假人生成', '假人创建'], spawn);
      * ```
      */
-    add(prefixes: string | string[], command: Executable | CommandHandler): void {
+    add(prefixes: string | string[], ...stack: [...middlewares: Middleware[], handler: Executable | CommandHandler]): void {
         const prefixesArray = (Array.isArray(prefixes) ? prefixes : [prefixes])
             .map(prefix => prefix.toLowerCase());
 
+        const handler = stack.pop() as Executable | CommandHandler;
+        const middlewares = stack as Middleware[];
+
         let commandHandler: CommandHandler;
 
-        if (typeof command === 'function')
-            commandHandler = command;
-        else if (typeof command.execute === 'function')
-            commandHandler = command.execute.bind(command);
+        if (typeof handler === 'function')
+            commandHandler = handler;
+        else if (typeof handler.execute === 'function')
+            commandHandler = handler.execute.bind(handler);
         else
-            throw new Error('Command must be a function or an object conforming to Executable interface.');
+            throw new Error('Handler must be a function or an object conforming to Executable interface.');
 
         for (const prefix of prefixesArray) {
             if (this.commandMap.has(prefix))
                 throw new CommandAlreadyExistsError(prefix);
 
-            this.commandMap.set(prefix, commandHandler);
+            this.commandMap.set(prefix, [...middlewares, commandHandler]);
         }
     }
 
@@ -79,10 +82,8 @@ class CommandManager {
             .map(prefix => prefix.toLowerCase());
 
         for (const prefix of prefixesArray) {
-            if (!this.commandMap.has(prefix))
+            if (!this.commandMap.delete(prefix))
                 throw new CommandNotFoundError(prefix);
-
-            this.commandMap.delete(prefix);
         }
     }
 
@@ -128,13 +129,21 @@ class CommandManager {
         // 都有?.了你还用&&
         commandInfoNoArgs?.player?.playSound?.('note.bell');
 
-        command({ prefix, args, ...commandInfoNoArgs });
+        const composed = this.compose(command);
+        composed({ prefix, args, ...commandInfoNoArgs });
     }
 
     private runString(commandString: string, commandInfoNoArgs: CommandInfoNoArgs = {}): void {
         const { prefix, args } = this.parseCommandString(commandString);
 
         this.runCommand(prefix, args, commandInfoNoArgs);
+    }
+
+    private compose(stack: Stack): CommandHandler {
+        return stack.reduceRight<CommandHandler>(
+            (next, middleware) => ctx => middleware(ctx, () => next(ctx)),
+            () => {}
+        );
     }
 
     /**
