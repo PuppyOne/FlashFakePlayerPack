@@ -9,7 +9,7 @@ import {
 import {
     commandManager,
     CommandNotFoundError,
-    type CommandInfoNoArgs
+    type BaseContext
 } from "@/core/command";
 import { Messages } from "@/constants";
 
@@ -57,7 +57,7 @@ function parseScriptEventString(
     return `${prefix} ${message}`;
 }
 
-function getCommandInfoNoArgs(e: ScriptEventCommandMessageAfterEvent): CommandInfoNoArgs {
+function getBaseContext(e: ScriptEventCommandMessageAfterEvent): BaseContext {
     const { location, dimension } = getSourceLocation(e);
     return {
         player: e.sourceEntity instanceof Player ? e.sourceEntity : undefined,
@@ -69,7 +69,7 @@ function getCommandInfoNoArgs(e: ScriptEventCommandMessageAfterEvent): CommandIn
 
 // 注册全局/scriptevent监听
 system.afterEvents.scriptEventReceive.subscribe(e => {
-    const commandInfoNoArgs = getCommandInfoNoArgs(e);
+    const commandInfoNoArgs = getBaseContext(e);
     const commandString = parseScriptEventString(e);
 
     try {

@@ -1,6 +1,6 @@
 import { parseCommandString } from "./command-parser";
 import { CommandAlreadyExistsError, CommandNotFoundError } from "./errors";
-import type { Executable, CommandHandler, CommandInfoNoArgs } from "./types";
+import type { Executable, Handler, BaseContext } from "./types";
 
 /**
  * @example
@@ -32,13 +32,13 @@ import type { Executable, CommandHandler, CommandInfoNoArgs } from "./types";
  */
 class CommandManager {
     private parseCommandString = parseCommandString;
-    private commandMap = new Map<string, CommandHandler>();
+    private prefixToHandlerMap = new Map<string, Handler>();
 
     /**
      * 注册命令实例。
      * 
      * @param prefixes - 触发该命令的前缀字符串或字符串数组。
-     * @param command - 要注册的命令对象或函数。
+     * @param rawHandler - 要注册的命令对象或函数。
      * 
      * @throws {CommandAlreadyExistsError} 当给定的前缀已被注册时会抛出错误。
      * 
@@ -47,25 +47,24 @@ class CommandManager {
      * add(['假人生成', '假人创建'], spawn);
      * ```
      */
-    add(prefixes: string | string[], command: Executable | CommandHandler): void {
+    add(prefixes: string | string[], rawHandler: Executable | Handler): void {
         const prefixesArray = (Array.isArray(prefixes) ? prefixes : [prefixes])
             .map(prefix => prefix.toLowerCase());
 
-        let commandHandler: CommandHandler;
-
-        if (typeof command === 'function')
-            commandHandler = command;
-        else if (typeof command.execute === 'function')
-            commandHandler = command.execute.bind(command);
-        else
-            throw new Error('Command must be a function or an object conforming to Executable interface.');
+        const normalizedHandler = this.normalizeHandler(rawHandler);;
 
         for (const prefix of prefixesArray) {
-            if (this.commandMap.has(prefix))
+            if (this.prefixToHandlerMap.has(prefix))
                 throw new CommandAlreadyExistsError(prefix);
 
-            this.commandMap.set(prefix, commandHandler);
+            this.prefixToHandlerMap.set(prefix, normalizedHandler);
         }
+    }
+
+    private normalizeHandler(rawHandler: Executable | Handler): Handler {
+        return typeof rawHandler === 'function'
+            ? rawHandler
+            : rawHandler.execute.bind(rawHandler);
     }
 
     /**
@@ -79,10 +78,10 @@ class CommandManager {
             .map(prefix => prefix.toLowerCase());
 
         for (const prefix of prefixesArray) {
-            if (!this.commandMap.has(prefix))
+            if (!this.prefixToHandlerMap.has(prefix))
                 throw new CommandNotFoundError(prefix);
 
-            this.commandMap.delete(prefix);
+            this.prefixToHandlerMap.delete(prefix);
         }
     }
 
@@ -97,7 +96,7 @@ class CommandManager {
      * 该方法首先解析命令字符串，提取命令前缀和参数数组，
      * 然后将这些信息用于执行相应的命令。
      */
-    run(commandString: string, commandInfoNoArgs?: CommandInfoNoArgs): void;
+    run(commandString: string, commandInfoNoArgs?: BaseContext): void;
 
     /**
      * 执行指定命令
@@ -108,19 +107,19 @@ class CommandManager {
      * 
      * @throws {CommandNotFoundError} 如果命令不存在。
      */
-    run(prefix: string, args: string[], commandInfoNoArgs: CommandInfoNoArgs): void;
+    run(prefix: string, args: string[], commandInfoNoArgs: BaseContext): void;
 
     // TODO: 后续参数修改为全称 ctx
-    run(arg1: string, arg2: CommandInfoNoArgs | string[] = {}, arg3?: CommandInfoNoArgs): void {
+    run(arg1: string, arg2: BaseContext | string[] = {}, arg3?: BaseContext): void {
         if (Array.isArray(arg2))
             this.runCommand(arg1, arg2, arg3!);
         else
             this.runString(arg1, arg2);
     }
 
-    private runCommand(prefix: string, args: string[], commandInfoNoArgs: CommandInfoNoArgs): void {
+    private runCommand(prefix: string, args: string[], commandInfoNoArgs: BaseContext): void {
         prefix = prefix.toLowerCase();
-        const command = this.commandMap.get(prefix);
+        const command = this.prefixToHandlerMap.get(prefix);
         if (!command)
             throw new CommandNotFoundError(prefix);
 
@@ -131,7 +130,7 @@ class CommandManager {
         command({ prefix, args, ...commandInfoNoArgs });
     }
 
-    private runString(commandString: string, commandInfoNoArgs: CommandInfoNoArgs = {}): void {
+    private runString(commandString: string, commandInfoNoArgs: BaseContext = {}): void {
         const { prefix, args } = this.parseCommandString(commandString);
 
         this.runCommand(prefix, args, commandInfoNoArgs);
@@ -146,7 +145,7 @@ class CommandManager {
      * ```
      */
     get prefixes(): string[] {
-        return Array.from(this.commandMap.keys());
+        return Array.from(this.prefixToHandlerMap.keys());
     }
 }
 

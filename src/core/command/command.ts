@@ -1,14 +1,14 @@
-import type { Executable, Context, CommandCondition, CommandHandler } from "./types";
+import type { Executable, Context, Condition, Handler } from "./types";
 
 export class Command implements Executable {
-    private conditionsHandlers = new Map<CommandCondition, CommandHandler[]>();
+    private conditionsHandlers = new Map<Condition, Handler[]>();
 
     /**
      * 注册命令处理回调。
      * 
      * @param handler 注册的命令 handler，接受命令信息对象。
      */
-    use(handler: CommandHandler): void;
+    use(handler: Handler): void;
 
     /**
      * 注册有条件约束的命令处理回调。
@@ -17,11 +17,11 @@ export class Command implements Executable {
      * @param condition 条件回调，接受命令信息对象，返回一个布尔值，仅当返回布尔值为 true 时才会执行对应的 handler。
      * @param handler 命令处理回调，接受命令信息对象。
      */
-    use(condition: CommandCondition, handler: CommandHandler): void;
-    use(conditionOrHandler: CommandCondition | CommandHandler, handler?: CommandHandler): void {
-        let condition: CommandCondition;
+    use(condition: Condition, handler: Handler): void;
+    use(conditionOrHandler: Condition | Handler, handler?: Handler): void {
+        let condition: Condition;
         if (handler)
-            condition = conditionOrHandler as CommandCondition;
+            condition = conditionOrHandler as Condition;
         else {
             handler = conditionOrHandler;
 

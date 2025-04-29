@@ -15,8 +15,8 @@ export interface Context {
     simulatedPlayer?: SimulatedPlayer;
 } // | Player | Dimension | Entity
 
-export type CommandInfoNoArgs = Omit<Context, "args" | "prefix">;
+export type BaseContext = Omit<Context, "args" | "prefix">;
 
-export type CommandHandler = (commandInfo: Context) => void;
+export type Handler = (commandInfo: Context) => void;
 
-export type CommandCondition = (commandInfo: Context) => boolean;
+export type Condition = (commandInfo: Context) => boolean;
