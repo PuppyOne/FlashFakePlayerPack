@@ -31,7 +31,6 @@ import type { Executable, Handler, BaseContext } from "./types";
  * ```
  */
 class CommandManager {
-    private parseCommandString = parseCommandString;
     private prefixToHandlerMap = new Map<string, Handler>();
 
     /**
@@ -131,7 +130,7 @@ class CommandManager {
     }
 
     private runString(commandString: string, commandInfoNoArgs: BaseContext = {}): void {
-        const { prefix, args } = this.parseCommandString(commandString);
+        const { prefix, args } = parseCommandString(commandString);
 
         this.runCommand(prefix, args, commandInfoNoArgs);
     }
