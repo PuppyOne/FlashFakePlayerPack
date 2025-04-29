@@ -108,12 +108,11 @@ class CommandManager {
      */
     run(prefix: string, args: string[], baseContext: BaseContext): void;
 
-    // TODO: 后续参数修改为全称 ctx
-    run(arg1: string, arg2: BaseContext | string[] = {}, arg3?: BaseContext): void {
-        if (Array.isArray(arg2))
-            this.runCommand(arg1, arg2, arg3!);
+    run(commandStringOrPrefix: string, argsOrBaseContext: BaseContext | string[] = {}, baseContext?: BaseContext): void {
+        if (Array.isArray(argsOrBaseContext))
+            this.runCommand(commandStringOrPrefix, argsOrBaseContext, baseContext!);
         else
-            this.runString(arg1, arg2);
+            this.runString(commandStringOrPrefix, argsOrBaseContext);
     }
 
     private runCommand(prefix: string, args: string[], baseContext: BaseContext): void {
