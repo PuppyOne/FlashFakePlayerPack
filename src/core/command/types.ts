@@ -14,7 +14,7 @@ export interface Context {
     simulatedPlayer?: SimulatedPlayer;
 }
 
-export type BaseContext = Omit<Context, "args" | "prefix">;
+export type BaseContext = Omit<Context, "prefix" | "args">;
 
 export type Handler = (commandInfo: Context) => void;
 
