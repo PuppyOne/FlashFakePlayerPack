@@ -88,25 +88,25 @@ class CommandManager {
      * 处理字符串命令并执行。
      * 
      * @param commandString - 要执行的完整命令字符串。
-     * @param commandInfoNoArgs - 命令信息。
+     * @param baseContext - 初始命令上下文。
      * 
      * @throws {CommandNotFoundError} 如果命令不存在。
      * 
      * 该方法首先解析命令字符串，提取命令前缀和参数数组，
      * 然后将这些信息用于执行相应的命令。
      */
-    run(commandString: string, commandInfoNoArgs?: BaseContext): void;
+    run(commandString: string, baseContext?: BaseContext): void;
 
     /**
      * 执行指定命令
      * 
      * @param prefix 命令前缀。
      * @param args 命令参数。
-     * @param commandInfoNoArgs 命令信息。
+     * @param baseContext 初始命令上下文。
      * 
      * @throws {CommandNotFoundError} 如果命令不存在。
      */
-    run(prefix: string, args: string[], commandInfoNoArgs: BaseContext): void;
+    run(prefix: string, args: string[], baseContext: BaseContext): void;
 
     // TODO: 后续参数修改为全称 ctx
     run(arg1: string, arg2: BaseContext | string[] = {}, arg3?: BaseContext): void {
@@ -116,7 +116,7 @@ class CommandManager {
             this.runString(arg1, arg2);
     }
 
-    private runCommand(prefix: string, args: string[], commandInfoNoArgs: BaseContext): void {
+    private runCommand(prefix: string, args: string[], baseContext: BaseContext): void {
         prefix = prefix.toLowerCase();
         const command = this.prefixToHandlerMap.get(prefix);
         if (!command)
@@ -124,15 +124,15 @@ class CommandManager {
 
         // ding~
         // 都有?.了你还用&&
-        commandInfoNoArgs?.player?.playSound?.('note.bell');
+        baseContext?.player?.playSound?.('note.bell');
 
-        command({ prefix, args, ...commandInfoNoArgs });
+        command({ prefix, args, ...baseContext });
     }
 
-    private runString(commandString: string, commandInfoNoArgs: BaseContext = {}): void {
+    private runString(commandString: string, baseContext: BaseContext = {}): void {
         const { prefix, args } = parseCommandString(commandString);
 
-        this.runCommand(prefix, args, commandInfoNoArgs);
+        this.runCommand(prefix, args, baseContext);
     }
 
     /**

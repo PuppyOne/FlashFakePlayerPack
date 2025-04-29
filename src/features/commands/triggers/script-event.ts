@@ -67,16 +67,16 @@ function getBaseContext(e: ScriptEventCommandMessageAfterEvent): BaseContext {
 
 // 注册全局/scriptevent监听
 system.afterEvents.scriptEventReceive.subscribe(e => {
-    const commandInfoNoArgs = getBaseContext(e);
+    const baseContext = getBaseContext(e);
     const commandString = parseScriptEventString(e);
 
     try {
-        commandManager.run(commandString, commandInfoNoArgs);
+        commandManager.run(commandString, baseContext);
     } catch (e) {
         console.error(e);
         if (e instanceof CommandNotFoundError)
-            commandInfoNoArgs?.player?.sendMessage(`[模拟玩家] 命令错误，找不到命令: ${e.commandName}`);
+            baseContext?.player?.sendMessage(`[模拟玩家] 命令错误，找不到命令: ${e.commandName}`);
         else
-            commandInfoNoArgs?.player?.sendMessage(Messages.UNHANDLED_EXCEPTION);
+            baseContext?.player?.sendMessage(Messages.UNHANDLED_EXCEPTION);
     }
 }, { namespaces });

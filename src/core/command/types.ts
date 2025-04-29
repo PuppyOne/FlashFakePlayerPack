@@ -2,7 +2,7 @@ import type { Dimension, Player, Vector3 } from "@minecraft/server";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
 export interface Executable {
-    execute: (commandInfo: Context) => void;
+    execute: (ctx: Context) => void;
 }
 
 export interface Context {
@@ -16,6 +16,6 @@ export interface Context {
 
 export type BaseContext = Omit<Context, "prefix" | "args">;
 
-export type Handler = (commandInfo: Context) => void;
+export type Handler = (ctx: Context) => void;
 
-export type Condition = (commandInfo: Context) => boolean;
+export type Condition = (ctx: Context) => boolean;
