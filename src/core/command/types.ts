@@ -12,7 +12,7 @@ export interface Context {
     location?: Vector3;
     dimension?: Dimension;
     simulatedPlayer?: SimulatedPlayer;
-} // | Player | Dimension | Entity
+}
 
 export type BaseContext = Omit<Context, "args" | "prefix">;
 
