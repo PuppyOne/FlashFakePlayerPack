@@ -37,9 +37,9 @@ class CommandManager {
      * 注册命令实例。
      * 
      * @param prefixes - 触发该命令的前缀字符串或字符串数组。
-     * @param rawHandler - 要注册的命令对象或函数。
+     * @param rawHandler - 要注册的 handler，可以是函数或实现了 `Executable` 接口的对象。
      * 
-     * @throws {CommandAlreadyExistsError} 当给定的前缀已被注册时会抛出错误。
+     * @throws {CommandAlreadyExistsError} 如果给定前缀已被注册。
      * 
      * @example
      * ```typescript
@@ -60,6 +60,14 @@ class CommandManager {
         }
     }
 
+    /**
+     * 将 handler 标准化，确保始终以函数形式返回。
+     * 如果提供的 handler 是一个带有 `execute` 方法的对象，
+     * 则将 `execute` 方法绑定到该对象并以函数形式返回。
+     * 
+     * @param rawHandler - 要标准化的 handler ，可以是函数或实现了 `Executable` 接口的对象。
+     * @returns 一个可以作为 handler 执行的函数。
+     */
     private normalizeHandler(rawHandler: Executable | Handler): Handler {
         return typeof rawHandler === 'function'
             ? rawHandler
@@ -70,7 +78,7 @@ class CommandManager {
      * 取消注册命令。
      * 
      * @param prefixes - 要取消注册的命令前缀字符串或字符串数组。
-     * @throws {CommandNotFoundError} 当给定的前缀未被注册时会抛出错误。
+     * @throws {CommandNotFoundError} 如果给定前缀未注册。
      */
     remove(prefixes: string | string[]): void {
         const prefixesArray = (Array.isArray(prefixes) ? prefixes : [prefixes])
