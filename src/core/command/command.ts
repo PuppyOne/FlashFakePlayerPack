@@ -1,7 +1,7 @@
 import type { Executable, Context, Condition, Handler } from "./types";
 
 export class Command implements Executable {
-    private conditionsHandlers = new Map<Condition, Handler[]>();
+    private conditionToHandlersMap = new Map<Condition, Handler[]>();
 
     /**
      * 注册命令处理回调。
@@ -29,10 +29,10 @@ export class Command implements Executable {
             condition = () => true;
         }
 
-        if (!this.conditionsHandlers.has(condition))
-            this.conditionsHandlers.set(condition, []);
+        if (!this.conditionToHandlersMap.has(condition))
+            this.conditionToHandlersMap.set(condition, []);
 
-        this.conditionsHandlers.get(condition)!.push(handler);
+        this.conditionToHandlersMap.get(condition)!.push(handler);
     }
 
     /**
@@ -45,7 +45,7 @@ export class Command implements Executable {
      * 只有第一个满足条件的 handler 会被执行。
      */
     execute(ctx: Context): void {
-        for (const [condition, handlers] of this.conditionsHandlers)
+        for (const [condition, handlers] of this.conditionToHandlersMap)
             if (condition(ctx)) {
                 handlers.forEach(handler => handler(ctx));
 
