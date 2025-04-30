@@ -8,7 +8,7 @@ import { dimensions } from '@/constants';
 const overworld = world.getDimension("overworld");
 
 const addSimulatedPlayer = (entity: Player | undefined, location: Vector3, dimension: Dimension, nameTag?: string): void => {
-    try {// TODO: midware
+    try {
         simulatedPlayerManager.add({ name: nameTag, dimension, location });
     } catch (e) {
         if (e instanceof NotReadyError)
