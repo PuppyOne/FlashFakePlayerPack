@@ -27,6 +27,7 @@ const update = (): void => {
         playerReady.trigger();
 
         system.clearRun(id);
+        playerViewYMap.clear();
     });
 };
 
