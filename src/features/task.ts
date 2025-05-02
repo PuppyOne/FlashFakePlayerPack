@@ -5,7 +5,7 @@ import { getEntitiesNear, getPlayerNear } from '@/core/queries'
 import { simulatedPlayerManager } from '@/core/simulated-player';
 import { gameTestManager } from '@/core/gametest';
 
-const simulatedPlayerStates: { [id: string]: { o?: Vector3; }; } = {}
+const simulatedPlayerStates: Record<string, { o?: Vector3; }> = {}
 
 // behavior
 function AUTO_BEHAVIOR(){
