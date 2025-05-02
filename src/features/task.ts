@@ -11,7 +11,6 @@ const simulatedPlayerStates: { [id: string]: { o?: Vector3; }; } = {}
 function AUTO_BEHAVIOR(){
 
     for (const simulatedPlayer of simulatedPlayerManager.simulatedPlayers.values()) {
-        // world.sendMessage(SimPlayer.nameTag)
         //判假人是否存活
         //瞎糊乱改接口名--2023-07-21-02：02
         if((simulatedPlayer.getComponent('minecraft:health')).currentValue<=0){
@@ -37,14 +36,7 @@ function AUTO_BEHAVIOR(){
 
             simulatedPlayerStates[simulatedPlayer.id] || (simulatedPlayerStates[simulatedPlayer.id]={})
             simulatedPlayerStates[simulatedPlayer.id]["o"] || (simulatedPlayerStates[simulatedPlayer.id]["o"]=simulatedPlayer.location)
-            // let a: { "str-SimPlayer.id": { o: Vector3 } } = ({
-            //     'str-SimPlayer.id':{
-            //         'o':SimPlayer.location
-            //     }
-            // })
             const r3 = (a: Vector3, b: Vector3, threshold: number) => Math.abs(a.x - b.x) > threshold || Math.abs(a.y - b.y) > threshold || Math.abs(a.z - b.z) > threshold
-            // const fix = (o:Vector3)=>({x:o.x-30000000+1,y:o.y,z:o.z-3})
-            // && r3(SimulatedPlayerStates[SimPlayer]["o"],SimPlayer.location,16)
             if(entities.length>0 ){
 
                 // walk to target
@@ -59,38 +51,10 @@ function AUTO_BEHAVIOR(){
                 console.error("back")
                 if( r3(simulatedPlayer.location,simulatedPlayerStates[simulatedPlayer.id]["o"],1) )
                     simulatedPlayer.moveToLocation(gameTestManager.test.relativeLocation(simulatedPlayerStates[simulatedPlayer.id]["o"]))
-                // SimPlayer.moveToLocation({x:-30000000,y:-128,z:0})
 
             }
         }
     }
-
-    // /gamerule playerssleepingpercentage 50%
 }
 
 system.runInterval(AUTO_BEHAVIOR,20)
-
-
-// const commandRegistry: CommandRegistry = new CommandRegistry('task')
-
-
-
-// AUTO_TRIDENT_SIGN
-// commandRegistry.registerCommand('假人自动丢三叉戟', ({entity,isEntity}) => {
-//     if(!isEntity)return
-//
-//     const SimPlayer:SimulatedPlayer = getSimPlayer.fromView(entity)
-//
-//     if(!SimPlayer)return
-//     else
-//         SimPlayer.addTag(SIGN.AUTO_TRIDENT_SIGN)
-//
-// })
-
-
-// world.afterEvents.chatSend.subscribe(({message, sender})=> {
-//     const args = CommandRegistry.parse(message)
-//     if(commandRegistry.commandsList.has(args[0]))
-//         commandRegistry.executeCommand(args[0],{isEntity:true,entity:sender,location:sender.location,args})
-// })
-
