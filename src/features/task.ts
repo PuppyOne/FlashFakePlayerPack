@@ -43,7 +43,6 @@ function AUTO_BEHAVIOR(){
             //         'o':SimPlayer.location
             //     }
             // })
-            const r = (x:number,_x:number,v:number)=>x-_x>v||x-_x<-v
             const r3 = (o:Vector3,_o:Vector3,v:number)=>o.x-_o.x>v||o.x-_o.x<-v || o.y-_o.y>v||o.y-_o.y<-v || o.z-_o.z>v||o.z-_o.z<-v
             // const fix = (o:Vector3)=>({x:o.x-30000000+1,y:o.y,z:o.z-3})
             const fix = (location:Vector3)=>Vector_subtract(location, gameTestManager.testLocation)
