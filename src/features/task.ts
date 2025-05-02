@@ -42,7 +42,7 @@ function AUTO_BEHAVIOR(){
             //         'o':SimPlayer.location
             //     }
             // })
-            const r3 = (o:Vector3,_o:Vector3,v:number)=>o.x-_o.x>v||o.x-_o.x<-v || o.y-_o.y>v||o.y-_o.y<-v || o.z-_o.z>v||o.z-_o.z<-v
+            const r3 = (a: Vector3, b: Vector3, threshold: number) => Math.abs(a.x - b.x) > threshold || Math.abs(a.y - b.y) > threshold || Math.abs(a.z - b.z) > threshold
             // const fix = (o:Vector3)=>({x:o.x-30000000+1,y:o.y,z:o.z-3})
             // && r3(SimulatedPlayerStates[SimPlayer]["o"],SimPlayer.location,16)
             if(entities.length>0 ){
