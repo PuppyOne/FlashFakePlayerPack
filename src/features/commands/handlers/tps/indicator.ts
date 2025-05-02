@@ -8,7 +8,7 @@ const EVENTS = [
     world.afterEvents.playerSpawn,
     world.afterEvents.playerLeave,
     world.afterEvents.worldLoad,
-] as const satisfies readonly { subscribe: (...args: any) => void; }[];
+] as const satisfies readonly { subscribe: (callback: () => void) => void; }[];
 
 const tpsMonitor = new TPSMonitor();
 
