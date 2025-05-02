@@ -1,4 +1,3 @@
-//@ts-nocheck
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
 import { SIGN } from '@/constants'
 import type { EntityHealthComponent, Vector3 } from '@minecraft/server'
