@@ -5,7 +5,7 @@ import { getEntitiesNear, getPlayerNear } from '@/core/queries'
 import { simulatedPlayerManager } from '@/core/simulated-player';
 import { gameTestManager } from '@/core/gametest';
 
-const simulatedPlayerStates : ({ "str-SimPlayer.id": { o: Vector3 }}) = {}
+const simulatedPlayerStates: ({ [id: string]: { o?: Vector3; }; }) = {}
 
 const Vector_subtract = ({x,y,z}:Vector3, {x:u,y:v,z:w}:Vector3)=>({x:x-u,y:y-v,z:z-w})
 // behavior
