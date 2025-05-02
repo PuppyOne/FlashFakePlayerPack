@@ -1,7 +1,6 @@
-import type { SimulatedPlayer } from '@minecraft/server-gametest'
 import { SIGN } from '@/constants'
-import type { EntityHealthComponent, Vector3 } from '@minecraft/server'
-import { system, world } from '@minecraft/server'
+import type { Vector3 } from '@minecraft/server'
+import { system } from '@minecraft/server'
 import { getEntitiesNear, getPlayerNear } from '@/core/queries'
 import { simulatedPlayerManager } from '@/core/simulated-player';
 import { gameTestManager } from '@/core/gametest';
