@@ -7,7 +7,6 @@ import { gameTestManager } from '@/core/gametest';
 
 const simulatedPlayerStates: { [id: string]: { o?: Vector3; }; } = {}
 
-const Vector_subtract = ({x,y,z}:Vector3, {x:u,y:v,z:w}:Vector3)=>({x:x-u,y:y-v,z:z-w})
 // behavior
 function AUTO_BEHAVIOR(){
 
@@ -45,7 +44,6 @@ function AUTO_BEHAVIOR(){
             // })
             const r3 = (o:Vector3,_o:Vector3,v:number)=>o.x-_o.x>v||o.x-_o.x<-v || o.y-_o.y>v||o.y-_o.y<-v || o.z-_o.z>v||o.z-_o.z<-v
             // const fix = (o:Vector3)=>({x:o.x-30000000+1,y:o.y,z:o.z-3})
-            const fix = (location:Vector3)=>Vector_subtract(location, gameTestManager.testLocation)
             // && r3(SimulatedPlayerStates[SimPlayer]["o"],SimPlayer.location,16)
             if(entities.length>0 ){
 
@@ -53,14 +51,14 @@ function AUTO_BEHAVIOR(){
                 const target = entities[0]
                 if( !r3(target.location,simulatedPlayer.location,4) ){
 
-                    simulatedPlayer.moveToLocation(fix(target.location))
+                    simulatedPlayer.moveToLocation(gameTestManager.test.relativeLocation(target.location))
                     // console.error(target.typeId,target.location.x,target.location.y,target.location.z)
                 }
 
             }else{
                 console.error("back")
                 if( r3(simulatedPlayer.location,simulatedPlayerStates[simulatedPlayer.id]["o"],1) )
-                    simulatedPlayer.moveToLocation( fix(simulatedPlayerStates[simulatedPlayer.id]["o"]) )
+                    simulatedPlayer.moveToLocation(gameTestManager.test.relativeLocation(simulatedPlayerStates[simulatedPlayer.id]["o"]))
                 // SimPlayer.moveToLocation({x:-30000000,y:-128,z:0})
 
             }
