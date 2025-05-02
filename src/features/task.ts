@@ -11,7 +11,7 @@ const Vector_subtract = ({x,y,z}:Vector3, {x:u,y:v,z:w}:Vector3)=>({x:x-u,y:y-v,
 // behavior
 function AUTO_BEHAVIOR(){
 
-    for (const [pid, simulatedPlayer] of simulatedPlayerManager.simulatedPlayers) {
+    for (const simulatedPlayer of simulatedPlayerManager.simulatedPlayers.values()) {
         // world.sendMessage(SimPlayer.nameTag)
         //判假人是否存活
         //瞎糊乱改接口名--2023-07-21-02：02
