@@ -19,7 +19,7 @@ import { type SimulatedPlayer, LookDuration } from '@minecraft/server-gametest';
 //         .show(damagingEntity)
 // })
 
-const BEHAVIOR_FUNCTION = {
+const BEHAVIOR_HANDLERS = {
     lookAtEntity: (sim: SimulatedPlayer, player: Player) => sim.lookAtEntity(player, LookDuration.Instant),
     teleport: (sim: SimulatedPlayer, player: Player) => sim.teleport(player.location),
     useAndStopUsingItem: (sim: SimulatedPlayer & Player) => sim.useItemInSlot(sim.selectedSlotIndex) && sim.stopUsingItem(),
@@ -42,7 +42,7 @@ const BEHAVIOR_FUNCTION = {
     disconnect: (sim: SimulatedPlayer) => commandManager.run('假人销毁', { simulatedPlayer: sim }),
 };
 
-export const exeBehavior = (behavior: string) => BEHAVIOR[behavior] && BEHAVIOR_FUNCTION[behavior];
+export const exeBehavior = (behavior: string) => BEHAVIOR[behavior] && BEHAVIOR_HANDLERS[behavior];
 
 
 world.beforeEvents.playerInteractWithEntity.subscribe(e=>{
