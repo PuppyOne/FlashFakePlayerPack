@@ -1,7 +1,8 @@
-export * from './commands';
 export * from './task';
 export * from './gui';
 export * from './killedBySimPlayer';
+
+export * from './command-triggers';
 
 export * from './meta/help';
 export * from './meta/list-simulated-players';
