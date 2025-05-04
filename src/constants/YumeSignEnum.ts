@@ -28,6 +28,11 @@ export enum SIGN_ZH {
     YUME_SIM_SIGN = '云梦假人标签',
 }
 
+export const DEFAULT_SIGNS = [
+    SIGN.AUTO_RESPAWN_SIGN,
+    SIGN.YUME_SIM_SIGN,
+] as const satisfies readonly SIGN[];
+
 // SIGN for normal BEHAVIOR
 export enum BEHAVIOR {
     lookAtEntity = 'lookAtEntity',
