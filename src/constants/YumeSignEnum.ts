@@ -1,9 +1,4 @@
 // SIGN for AUTO_BEHAVIOR
-import { SimulatedPlayer, LookDuration } from '@minecraft/server-gametest';
-import { Player } from '@minecraft/server';
-import { commandManager } from '@/core/command';
-import { ModalFormData } from '@minecraft/server-ui';
-
 export enum SIGN {
     AUTO_BREAKBLOCK_SIGN = 'AUTO_BREAKBLOCK_SIGN',
     ATTACK_SIGN = 'ATTACK_SIGN',
