@@ -11,14 +11,6 @@ import { simulatedPlayerManager } from '@/core/simulated-player';
 import { commandManager } from '@/core/command';
 import { type SimulatedPlayer, LookDuration } from '@minecraft/server-gametest';
 
-// world.afterEvents.entityHitEntity.subscribe(({damagingEntity,hitEntity})=>{
-//     if(!damagingEntity || !hitEntity)return;
-//     if(!hitEntity.hasTag(SIGN.YUME_SIM_SIGN))return;
-//     world.sendMessage(''+damagingEntity.typeId+' '+(hitEntity.typeId))
-//     new ActionFormData().body('#x#').button('喵？')
-//         .show(damagingEntity)
-// })
-
 const BEHAVIOR_HANDLERS = {
     lookAtEntity: (simulatedPlayer: SimulatedPlayer, player: Player) => simulatedPlayer.lookAtEntity(player, LookDuration.Instant),
     teleport: (simulatedPlayer: SimulatedPlayer, player: Player) => simulatedPlayer.teleport(player.location),
