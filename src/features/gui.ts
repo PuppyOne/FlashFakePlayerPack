@@ -22,8 +22,8 @@ import { type SimulatedPlayer, LookDuration } from '@minecraft/server-gametest';
 const BEHAVIOR_HANDLERS = {
     lookAtEntity: (simulatedPlayer: SimulatedPlayer, player: Player) => simulatedPlayer.lookAtEntity(player, LookDuration.Instant),
     teleport: (simulatedPlayer: SimulatedPlayer, player: Player) => simulatedPlayer.teleport(player.location),
-    useAndStopUsingItem: (simulatedPlayer: SimulatedPlayer & Player) => simulatedPlayer.useItemInSlot(simulatedPlayer.selectedSlotIndex) && simulatedPlayer.stopUsingItem(),
-    useItemInSlot: (simulatedPlayer: SimulatedPlayer & Player) => simulatedPlayer.useItemInSlot(simulatedPlayer.selectedSlotIndex),
+    useAndStopUsingItem: (simulatedPlayer: SimulatedPlayer) => simulatedPlayer.useItemInSlot(simulatedPlayer.selectedSlotIndex) && simulatedPlayer.stopUsingItem(),
+    useItemInSlot: (simulatedPlayer: SimulatedPlayer) => simulatedPlayer.useItemInSlot(simulatedPlayer.selectedSlotIndex),
     stopUsingItem: (simulatedPlayer: SimulatedPlayer) => simulatedPlayer.stopUsingItem(),
     interact: (simulatedPlayer: SimulatedPlayer) => simulatedPlayer.interact(),
     swapMainhandItem: (simulatedPlayer: SimulatedPlayer, player: Player) => commandManager.run('假人主手物品交换', { player, simulatedPlayer }),
