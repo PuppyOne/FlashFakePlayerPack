@@ -46,11 +46,9 @@ export const exeBehavior = (behavior: string) => BEHAVIOR[behavior] && BEHAVIOR_
 
 
 world.beforeEvents.playerInteractWithEntity.subscribe(e=>{
-    const {player,target} = e
+    const {player,target: simulatedPlayer} = e
     if(!player || player.typeId!=='minecraft:player')return
-    if(!target || !simulatedPlayerManager.has(target))return// world.sendMessage('meow~ target');
-    const simulatedPlayer = target // what's unknow?
-    if(!simulatedPlayer)return
+    if(!simulatedPlayer || !simulatedPlayerManager.has(simulatedPlayer))return// world.sendMessage('meow~ target');
     e.cancel=true
 
     const tagManager = ()=>{
