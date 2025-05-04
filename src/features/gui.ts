@@ -20,26 +20,26 @@ import { type SimulatedPlayer, LookDuration } from '@minecraft/server-gametest';
 // })
 
 const BEHAVIOR_HANDLERS = {
-    lookAtEntity: (sim: SimulatedPlayer, player: Player) => sim.lookAtEntity(player, LookDuration.Instant),
-    teleport: (sim: SimulatedPlayer, player: Player) => sim.teleport(player.location),
-    useAndStopUsingItem: (sim: SimulatedPlayer & Player) => sim.useItemInSlot(sim.selectedSlotIndex) && sim.stopUsingItem(),
-    useItemInSlot: (sim: SimulatedPlayer & Player) => sim.useItemInSlot(sim.selectedSlotIndex),
-    stopUsingItem: (sim: SimulatedPlayer) => sim.stopUsingItem(),
-    interact: (sim: SimulatedPlayer) => sim.interact(),
-    swapMainhandItem: (sim: SimulatedPlayer, player: Player) => commandManager.run('假人主手物品交换', { player, simulatedPlayer: sim }),
-    swapInventory: (sim: SimulatedPlayer, player: Player) => commandManager.run('假人背包交换', { player, simulatedPlayer: sim }),
-    swapEquipment: (sim: SimulatedPlayer, player: Player) => commandManager.run('假人装备交换', { player, simulatedPlayer: sim }),
-    rename: async (sim: SimulatedPlayer, player: Player) => {
+    lookAtEntity: (simulatedPlayer: SimulatedPlayer, player: Player) => simulatedPlayer.lookAtEntity(player, LookDuration.Instant),
+    teleport: (simulatedPlayer: SimulatedPlayer, player: Player) => simulatedPlayer.teleport(player.location),
+    useAndStopUsingItem: (simulatedPlayer: SimulatedPlayer & Player) => simulatedPlayer.useItemInSlot(simulatedPlayer.selectedSlotIndex) && simulatedPlayer.stopUsingItem(),
+    useItemInSlot: (simulatedPlayer: SimulatedPlayer & Player) => simulatedPlayer.useItemInSlot(simulatedPlayer.selectedSlotIndex),
+    stopUsingItem: (simulatedPlayer: SimulatedPlayer) => simulatedPlayer.stopUsingItem(),
+    interact: (simulatedPlayer: SimulatedPlayer) => simulatedPlayer.interact(),
+    swapMainhandItem: (simulatedPlayer: SimulatedPlayer, player: Player) => commandManager.run('假人主手物品交换', { player, simulatedPlayer }),
+    swapInventory: (simulatedPlayer: SimulatedPlayer, player: Player) => commandManager.run('假人背包交换', { player, simulatedPlayer }),
+    swapEquipment: (simulatedPlayer: SimulatedPlayer, player: Player) => commandManager.run('假人装备交换', { player, simulatedPlayer }),
+    rename: async (simulatedPlayer: SimulatedPlayer, player: Player) => {
         const modalForm = new ModalFormData().title("假人改名");
-        modalForm.textField(`由 "${sim.nameTag}" 改为：`, '输入新名称', sim.nameTag);
+        modalForm.textField(`由 "${simulatedPlayer.nameTag}" 改为：`, '输入新名称', simulatedPlayer.nameTag);
         const { canceled, formValues } = await modalForm.show(player);
         if (canceled) return;
 
-        sim.nameTag = <string>formValues[0];
-        // commandManager.executeCommand('假人改名', [name], { entity: player, sim });
+        simulatedPlayer.nameTag = <string>formValues[0];
+        // commandManager.executeCommand('假人改名', [name], { entity: player, simulatedPlayer });
     },
-    recycle: (sim: SimulatedPlayer, player: Player) => commandManager.run('假人资源回收', { player, simulatedPlayer: sim }), // item and exp
-    disconnect: (sim: SimulatedPlayer) => commandManager.run('假人销毁', { simulatedPlayer: sim }),
+    recycle: (simulatedPlayer: SimulatedPlayer, player: Player) => commandManager.run('假人资源回收', { player, simulatedPlayer }), // item and exp
+    disconnect: (simulatedPlayer: SimulatedPlayer) => commandManager.run('假人销毁', { simulatedPlayer }),
 };
 
 export const exeBehavior = (behavior: string) => BEHAVIOR[behavior] && BEHAVIOR_HANDLERS[behavior];
