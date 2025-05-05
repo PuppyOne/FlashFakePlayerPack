@@ -14,10 +14,8 @@ function checkIsAlive(simulatedPlayer: SimulatedPlayer): boolean {
     return health?.currentValue > 0;
 }
 
-const r3 = (a: Vector3, b: Vector3, threshold: number) =>
-    Math.abs(a.x - b.x) > threshold ||
-    Math.abs(a.y - b.y) > threshold ||
-    Math.abs(a.z - b.z) > threshold;
+const chebyshevDistance3 = (a: Vector3, b: Vector3): number =>
+    Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y), Math.abs(a.z - b.z));
 
 // behavior
 function AUTO_BEHAVIOR() {
@@ -61,9 +59,9 @@ function AUTO_BEHAVIOR() {
 
                 // walk to target
                 const target = entities[0];
-                if (!r3(target.location, simulatedPlayer.location, 4))
+                if (chebyshevDistance3(target.location, simulatedPlayer.location) <= 4)
                     simulatedPlayer.moveToLocation(gameTestManager.test.relativeLocation(target.location));
-            } else if (originalPosition && r3(simulatedPlayer.location, originalPosition,1)) {
+            } else if (originalPosition && chebyshevDistance3(simulatedPlayer.location, originalPosition) > 1) {
                 simulatedPlayer.moveToLocation(gameTestManager.test.relativeLocation(originalPosition));
 
             }
