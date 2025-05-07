@@ -10,7 +10,7 @@ commandManager.add('假人主手物品交换', ({player,simulatedPlayer: sim}) =
     const s = simulatedPlayer.getComponent("minecraft:equippable")
 
     const p = player.getComponent("minecraft:equippable")
-    const i = EquipmentSlot['Mainhand'] ?? EquipmentSlot['mainhand']
+    const i = EquipmentSlot.Mainhand
     const _ = s.getEquipment(i)
     const __ = p.getEquipment(i)
     s.setEquipment(i, __)

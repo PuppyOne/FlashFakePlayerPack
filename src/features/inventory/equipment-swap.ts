@@ -12,7 +12,7 @@ commandManager.add(['假人装备交换','假人交换装备'], ({player,simulat
     const p = player.getComponent("minecraft:equippable") // player
     for (const i in  EquipmentSlot) {
         //跳过主手
-        if (i === EquipmentSlot['Mainhand']) continue
+        if (i === EquipmentSlot.Mainhand) continue
         // console.error(i)
         const _ = s.getEquipment(<EquipmentSlot>i)
         const __ = p.getEquipment(<EquipmentSlot>i)
