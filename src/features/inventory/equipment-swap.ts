@@ -1,15 +1,15 @@
 import { commandManager } from "@/core/command";
 import { getSimPlayer } from "@/core/queries";
-import { EquipmentSlot } from "@minecraft/server";
+import { EntityComponentTypes, EquipmentSlot } from "@minecraft/server";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
 commandManager.add(['假人装备交换','假人交换装备'], ({player,simulatedPlayer: sim}) => {
     const simulatedPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(player)
     if(!player && !sim)return
 
-    const s = simulatedPlayer.getComponent("minecraft:equippable") // SimPlayer
+    const s = simulatedPlayer.getComponent(EntityComponentTypes.Equippable) // SimPlayer
 
-    const p = player.getComponent("minecraft:equippable") // player
+    const p = player.getComponent(EntityComponentTypes.Equippable) // player
     for (const i in  EquipmentSlot) {
         //跳过主手
         if (i === EquipmentSlot.Mainhand) continue
