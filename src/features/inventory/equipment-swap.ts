@@ -10,6 +10,6 @@ commandManager.add(['假人装备交换','假人交换装备'], ({player,simulat
 
     for (const i in  EquipmentSlot) {
         if (i === EquipmentSlot.Mainhand) continue
-        swapEquipment(player, simulatedPlayer, <EquipmentSlot>i)
+        swapEquipment(player, simulatedPlayer, EquipmentSlot[i])
     }
 });
