@@ -1,9 +1,8 @@
 import { EntityComponentTypes, type EquipmentSlot, type Player } from "@minecraft/server";
-import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
-export const swapEquipment = (player: Player, simulatedPlayer: SimulatedPlayer, slot: EquipmentSlot): void => {
-    const s = simulatedPlayer.getComponent(EntityComponentTypes.Equippable);
-    const p = player.getComponent(EntityComponentTypes.Equippable);
+export const swapEquipment = (playerA: Player, playerB: Player, slot: EquipmentSlot): void => {
+    const s = playerB.getComponent(EntityComponentTypes.Equippable);
+    const p = playerA.getComponent(EntityComponentTypes.Equippable);
 
     const _ = s.getEquipment(slot);
     const __ = p.getEquipment(slot);
