@@ -12,7 +12,7 @@ gameTestManager.ready.then(test => {
     console.log('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”');
 });
 
-playerReady.subscribe(async () => {
+playerReady.then(async () => {
     await gameTestManager.ready;
     world.sendMessage('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”');
 });
