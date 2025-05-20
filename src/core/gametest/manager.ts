@@ -8,11 +8,6 @@ class GameTestManager {
     private _testLocation: Vector3 | undefined;
     private _test: Test | undefined;
 
-    private _resolve!: ((value: Test | PromiseLike<Test>) => void);
-    private readonly ready = new Promise<Test>(resolve => {
-        this._resolve = resolve;
-    });
-
     get testLocation(): Vector3 | undefined {
         return this._testLocation;
     }
@@ -21,7 +16,7 @@ class GameTestManager {
         return this._test;
     }
 
-    private registerTest(): void {
+    private registerTest(resolve: (value: Test) => void): void {
         const { randomTickSpeed, doDayLightCycle, doMobSpawning } = world.gameRules;
 
         if (!world.structureManager.get('xboyMinemcSIM:void'))
@@ -35,7 +30,7 @@ class GameTestManager {
             world.gameRules.doMobSpawning = doMobSpawning;
 
             this._test = test;
-            this._resolve(test);
+            resolve(test);
         })
             .maxTicks(this.maxTicks)
             .structureName('xboyMinemcSIM:void');
@@ -51,19 +46,19 @@ class GameTestManager {
     }
 
     initialize(): Promise<Test> {
-        this.registerTest();
+        return new Promise<Test>(resolve => {
+            this.registerTest(resolve);
 
-        const { x, y, z } = this.generateTestPosition();
+            const { x, y, z } = this.generateTestPosition();
 
-        system.run(() => {
-            try {
-                overworld.runCommand(`execute positioned ${x} ${y} ${z} run gametest run 我是云梦:假人`);
-            } catch (e) {
-                world.sendMessage('[模拟玩家] 报错了，我也不知道为什么' + e);
-            }
+            system.run(() => {
+                try {
+                    overworld.runCommand(`execute positioned ${x} ${y} ${z} run gametest run 我是云梦:假人`);
+                } catch (e) {
+                    world.sendMessage('[模拟玩家] 报错了，我也不知道为什么' + e);
+                }
+            });
         });
-
-        return this.ready;
     }
 }
 
