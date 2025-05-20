@@ -9,7 +9,7 @@ class GameTestManager {
     private _test: Test | undefined;
 
     private _resolve!: ((value: Test | PromiseLike<Test>) => void);
-    public readonly ready = new Promise<Test>(resolve => {
+    private readonly ready = new Promise<Test>(resolve => {
         this._resolve = resolve;
     });
 
@@ -50,7 +50,7 @@ class GameTestManager {
         };
     }
 
-    initialize(): void {
+    initialize(): Promise<Test> {
         this.registerTest();
 
         const { x, y, z } = this.generateTestPosition();
@@ -62,6 +62,8 @@ class GameTestManager {
                 world.sendMessage('[模拟玩家] 报错了，我也不知道为什么' + e);
             }
         });
+
+        return this.ready;
     }
 }
 
