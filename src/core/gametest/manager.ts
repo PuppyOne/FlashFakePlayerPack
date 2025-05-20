@@ -49,15 +49,19 @@ class GameTestManager {
         return new Promise<Test>(resolve => {
             this.registerTest(resolve);
 
-            const { x, y, z } = this.generateTestPosition();
+            this.runTest();
+        });
+    }
 
-            system.run(() => {
-                try {
-                    overworld.runCommand(`execute positioned ${x} ${y} ${z} run gametest run 我是云梦:假人`);
-                } catch (e) {
-                    world.sendMessage('[模拟玩家] 报错了，我也不知道为什么' + e);
-                }
-            });
+    private runTest(): void {
+        const { x, y, z } = this.generateTestPosition();
+
+        system.run(() => {
+            try {
+                overworld.runCommand(`execute positioned ${x} ${y} ${z} run gametest run 我是云梦:假人`);
+            } catch (e) {
+                world.sendMessage('[模拟玩家] 报错了，我也不知道为什么' + e);
+            }
         });
     }
 }
