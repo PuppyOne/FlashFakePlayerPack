@@ -8,23 +8,6 @@ class GameTestManager {
     private _testLocation: Vector3 | undefined;
     private _test: Test | undefined;
 
-    get testLocation(): Vector3 | undefined {
-        return this._testLocation;
-    }
-
-    get test(): Test | undefined {
-        return this._test;
-    }
-
-    private generateTestPosition(): Vector3 {
-        const z = 11451400 + Math.floor(Math.random() * 114514 * 19);
-        return {
-            x: 15000000,
-            y: 256,
-            z
-        };
-    }
-
     initialize(): Promise<Test> {
         // 1. 存储结构
         this.saveStructure();
@@ -62,9 +45,26 @@ class GameTestManager {
         });
     }
 
+    get testLocation(): Vector3 | undefined {
+        return this._testLocation;
+    }
+
+    get test(): Test | undefined {
+        return this._test;
+    }
+
     private saveStructure(): void {
         if (!world.structureManager.get('xboyMinemcSIM:void'))
             world.structureManager.createEmpty('xboyMinemcSIM:void', { x: 1, y: 1, z: 1 }).saveToWorld();
+    }
+
+    private generateTestPosition(): Vector3 {
+        const z = 11451400 + Math.floor(Math.random() * 114514 * 19);
+        return {
+            x: 15000000,
+            y: 256,
+            z
+        };
     }
 }
 
