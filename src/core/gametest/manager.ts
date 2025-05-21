@@ -29,7 +29,7 @@ class GameTestManager {
         // 1. 存储结构
         this.saveStructure();
 
-        return new Promise<Test>(resolve => {
+        return new Promise<Test>((resolve, reject) => {
             // 2. 暂存 gamerules
             const { randomTickSpeed, doDayLightCycle, doMobSpawning } = world.gameRules;
 
@@ -56,7 +56,7 @@ class GameTestManager {
                 try {
                     overworld.runCommand(`execute positioned ${x} ${y} ${z} run gametest run 我是云梦:假人`);
                 } catch (e) {
-                    world.sendMessage('[模拟玩家] 报错了，我也不知道为什么' + e);
+                    reject(e);
                 }
             });
         });
