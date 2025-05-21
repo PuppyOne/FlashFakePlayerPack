@@ -19,9 +19,6 @@ class GameTestManager {
     private registerTest(resolve: (value: Test) => void): void {
         const { randomTickSpeed, doDayLightCycle, doMobSpawning } = world.gameRules;
 
-        if (!world.structureManager.get('xboyMinemcSIM:void'))
-            world.structureManager.createEmpty('xboyMinemcSIM:void', { x: 1, y: 1, z: 1 }).saveToWorld();
-
         register('我是云梦', '假人', (test: Test) => {
             this._testLocation = test.worldBlockLocation({ x: 0, y: 0, z: 0 });
 
@@ -46,11 +43,18 @@ class GameTestManager {
     }
 
     initialize(): Promise<Test> {
+        this.saveStructure();
+
         return new Promise<Test>(resolve => {
             this.registerTest(resolve);
 
             this.runTest();
         });
+    }
+
+    private saveStructure(): void {
+        if (!world.structureManager.get('xboyMinemcSIM:void'))
+            world.structureManager.createEmpty('xboyMinemcSIM:void', { x: 1, y: 1, z: 1 }).saveToWorld();
     }
 
     private runTest(): void {
