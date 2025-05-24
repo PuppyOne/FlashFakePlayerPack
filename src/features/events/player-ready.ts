@@ -21,7 +21,7 @@ export const playerReady = new Promise<void>(resolve => {
                 return;
 
             // update to Map && Event-trigger
-            playerViewYMap.set(player, currentViewY);
+
             resolve();
 
             // 触发一次后即清理资源
