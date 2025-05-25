@@ -81,6 +81,7 @@ const registerBehaviorCommands = () => {
             adds.forEach(tag => {
                 simulatedPlayer.addTag(tag);
             });
+
             removes.forEach(tag => {
                 simulatedPlayer.removeTag(tag);
             });
