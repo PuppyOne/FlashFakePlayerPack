@@ -1,5 +1,3 @@
 const context = require.context('.', true, /\.ts$/);
 
-export const initialize = () => context
-    .keys()
-    .map((key) => context(key));
+export const initialize = () => context.keys().map(context);
