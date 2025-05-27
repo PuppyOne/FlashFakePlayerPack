@@ -4,8 +4,8 @@ import { commandManager } from '@/core/command';
 
 interface BehaviorCommandConfig {
     behavior: string;
-    adds: string[];
-    removes: string[];
+    adds: SIGN[];
+    removes: SIGN[];
 }
 
 const behaviorCommandConfigs = [
