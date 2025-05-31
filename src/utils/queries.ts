@@ -6,7 +6,7 @@ import { SIGN } from '@/constants'
 // getEntitiesFromViewDirection
 export const getSimPlayer = {
     // only one
-    fromView: (e:Entity,maxDistance=16):SimulatedPlayer=>(<SimulatedPlayer>e.getEntitiesFromViewDirection({maxDistance}).find(({entity}) => entity.hasTag(SIGN.YUME_SIM_SIGN))?.entity),
+    fromView: (e:Entity,maxDistance=16):SimulatedPlayer=>(<SimulatedPlayer>e.getEntitiesFromViewDirection({maxDistance, tags: [SIGN.YUME_SIM_SIGN]})[0]?.entity),
 
 }
 
