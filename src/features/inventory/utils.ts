@@ -4,7 +4,7 @@ export const swapItems = (playerA: Player, playerB: Player) => {
     const inventoryA = playerA.getComponent(EntityComponentTypes.Inventory).container;
     const inventoryB = playerB.getComponent(EntityComponentTypes.Inventory).container;
 
-    for (let i = inventoryA.size; i > 0; i--) {
+    for (let i = 0; i < inventoryA.size; i++) {
         const itemA = inventoryA.getItem(i);
         const itemB = inventoryB.getItem(i);
 
