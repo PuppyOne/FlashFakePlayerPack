@@ -1,11 +1,11 @@
 import { commandManager } from "@/core/command";
-import { getSimPlayer } from "@/utils";
+import { getSimulatedPlayerFromView } from "@/utils";
 import { EntityComponentTypes } from "@minecraft/server";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
 commandManager.register(['假人背包交换','假人交换背包'], ({player,simulatedPlayer: sim}) => {
     if(!player && !sim)return
-    const simulatedPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(player)
+    const simulatedPlayer:SimulatedPlayer = sim || getSimulatedPlayerFromView(player)
     if(!simulatedPlayer)return
 
     const s = simulatedPlayer.getComponent(EntityComponentTypes.Inventory).container

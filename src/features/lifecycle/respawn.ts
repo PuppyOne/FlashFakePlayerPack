@@ -1,6 +1,6 @@
 import { commandManager } from "@/core/command";
 import type { PID } from "@/core/pid";
-import { getSimPlayer } from "@/utils";
+import { getSimulatedPlayerFromView } from "@/utils";
 import { simulatedPlayerManager } from '@/core/simulated-player';
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
@@ -16,7 +16,7 @@ commandManager.register(['假人重生', '假人复活', '复活吧，我的爱�
         ;
         ;"对准~";
         ;
-        const simulatedPlayer:SimulatedPlayer = getSimPlayer.fromView(player)
+        const simulatedPlayer:SimulatedPlayer = getSimulatedPlayerFromView(player)
         if(!simulatedPlayer)return player.sendMessage("§e§l-你不要怀疑，10000%是你没对准，如果假人真躺了的话")  //entity.sendMessage("§e§l-面前不存在模拟玩家")
         simulatedPlayer.respawn()
     }else {

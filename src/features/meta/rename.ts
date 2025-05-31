@@ -1,5 +1,5 @@
 import { commandManager } from "@/core/command";
-import { getSimPlayer } from "@/utils";
+import { getSimulatedPlayerFromView } from "@/utils";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
 commandManager.register(['假人改名', '假人重命名', '假人换名'], ({player,args:[newName]}) => {
@@ -13,7 +13,7 @@ commandManager.register(['假人改名', '假人重命名', '假人换名'], ({p
     ;
     ; "对准~";
     ;
-    const simulatedPlayer: SimulatedPlayer = getSimPlayer.fromView(player);
+    const simulatedPlayer: SimulatedPlayer = getSimulatedPlayerFromView(player);
     if (!simulatedPlayer) return player.sendMessage("§e§l-你不要怀疑，10000%是你没对准，如果假人真躺了的话");  //entity.sendMessage("§e§l-面前不存在模拟玩家")
     simulatedPlayer.nameTag = newName;
     player.sendMessage("§e§l-改名成功")

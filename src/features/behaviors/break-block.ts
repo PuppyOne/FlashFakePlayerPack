@@ -1,7 +1,7 @@
 import type { SimulatedPlayer } from '@minecraft/server-gametest';
 
 import { Command, commandManager } from '@/core/command';
-import { getSimPlayer } from '@/utils';
+import { getSimulatedPlayerFromView } from '@/utils';
 import { world, system } from "@minecraft/server";
 import { SIGN } from "@/constants";
 import { gameTestManager } from '@/core/gametest';
@@ -13,7 +13,7 @@ breakBlockCommand.register(({ args }) => args.length === 0, ({ player }) => {
         return;
     }
 
-    const simulatedPlayer: SimulatedPlayer = getSimPlayer.fromView(player);
+    const simulatedPlayer: SimulatedPlayer = getSimulatedPlayerFromView(player);
     if (!simulatedPlayer) {
         player.sendMessage('§e§l-面前不存在模拟玩家');
         return;

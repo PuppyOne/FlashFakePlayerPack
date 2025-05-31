@@ -3,11 +3,8 @@ import {SimulatedPlayer} from '@minecraft/server-gametest'
 import { SIGN } from '@/constants'
 
 
-// getEntitiesFromViewDirection
-export const getSimPlayer = {
-    // only one
-    fromView: (e:Entity,maxDistance=16):SimulatedPlayer=>(<SimulatedPlayer>e.getEntitiesFromViewDirection({maxDistance, tags: [SIGN.YUME_SIM_SIGN]})[0]?.entity),
-
+export function getSimulatedPlayerFromView(e: Entity, maxDistance = 16): SimulatedPlayer {
+    return (<SimulatedPlayer>e.getEntitiesFromViewDirection({ maxDistance, tags: [SIGN.YUME_SIM_SIGN] })[0]?.entity);
 }
 
 export function getEntitiesNear(location:Vector3, dimension:Dimension, maxDistance:number, Options={}){
