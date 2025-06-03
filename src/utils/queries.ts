@@ -8,24 +8,20 @@ export function getSimulatedPlayerFromView(e: Entity, maxDistance = 16): Simulat
 }
 
 export function getClosestMob(location:Vector3, dimension:Dimension, maxDistance:number, Options={}){
-    const EntityQueryOption:EntityQueryOptions = {}
-    EntityQueryOption.maxDistance = maxDistance
-    EntityQueryOption.location    = location
-    EntityQueryOption.excludeTypes= ["minecraft:player","minecraft:arrow","minecraft:xp_orb","minecraft:item"]
-    EntityQueryOption.closest   = 1
-    Object.assign(EntityQueryOption,Options)
-    return dimension.getEntities(EntityQueryOption)
+    return dimension.getEntities({
+        excludeTypes: ["minecraft:player", "minecraft:arrow", "minecraft:xp_orb", "minecraft:item"],
+        closest: 1,
+        location,
+        maxDistance,
+        ...Options,
+    });
 }
 export function getClosestPlayer(who:Entity|Block, maxDistance:number, defEntityQueryOptions:EntityQueryOptions):Player[] {
-    const EQO: EntityQueryOptions = {}
-    EQO.maxDistance = maxDistance
-    EQO.location    = who.location
-    // EQO.excludeTypes= ["minecraft:arrow","minecraft:xp_orb","minecraft:item"]
-    EQO.closest   = 1
-    EQO.excludeTags = [SIGN.YUME_SIM_SIGN]
-    Object.assign(EQO,defEntityQueryOptions)
-    const entities = who.dimension.getPlayers(EQO)
-    const targets:Player[] = []
-    for(const entity of entities)targets.push(entity)
-    return targets
+    return who.dimension.getPlayers({
+        excludeTags: [SIGN.YUME_SIM_SIGN],
+        closest: 1,
+        location: who.location,
+        maxDistance,
+        ...defEntityQueryOptions,
+    });
 }
