@@ -2,7 +2,7 @@ import { SIGN } from '@/constants';
 import type { Vector3 } from '@minecraft/server';
 import { system } from '@minecraft/server';
 import type { SimulatedPlayer } from '@minecraft/server-gametest';
-import { getEntitiesNear, getPlayerNear } from '@/utils';
+import { getClosestMob, getClosestPlayer } from '@/utils';
 import { simulatedPlayerManager } from '@/core/simulated-player';
 import { gameTestManager } from '@/core/gametest';
 
@@ -34,7 +34,7 @@ function AUTO_BEHAVIOR() {
         if (simulatedPlayer.hasTag(SIGN.ATTACK_SIGN) && EntitiesFromView)
             simulatedPlayer.attackEntity(EntitiesFromView);
 
-        const EntitiesNear = getEntitiesNear(simulatedPlayer.location, simulatedPlayer.dimension, 4, {})[0];
+        const EntitiesNear = getClosestMob(simulatedPlayer.location, simulatedPlayer.dimension, 4, {})[0];
         if (simulatedPlayer.hasTag(SIGN.AUTO_ATTACK_SIGN) && EntitiesNear)
             simulatedPlayer.lookAtEntity(EntitiesNear);
         if (simulatedPlayer.hasTag(SIGN.AUTO_ATTACK_SIGN) && EntitiesFromView)
@@ -46,9 +46,9 @@ function AUTO_BEHAVIOR() {
 
         if (simulatedPlayer.hasTag(SIGN.AUTO_CHASE_SIGN)) {
             const entities = [
-                ...getEntitiesNear(simulatedPlayer.location, simulatedPlayer.dimension, 12, { families: ["undead"] }),
-                ...getEntitiesNear(simulatedPlayer.location, simulatedPlayer.dimension, 12, { families: ["monster"] }),
-                ...getPlayerNear(simulatedPlayer, 12, {})
+                ...getClosestMob(simulatedPlayer.location, simulatedPlayer.dimension, 12, { families: ["undead"] }),
+                ...getClosestMob(simulatedPlayer.location, simulatedPlayer.dimension, 12, { families: ["monster"] }),
+                ...getClosestPlayer(simulatedPlayer, 12, {})
             ];
 
             let originalPosition = originalPositionMap.get(simulatedPlayer);

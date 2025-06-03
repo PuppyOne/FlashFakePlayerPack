@@ -7,7 +7,7 @@ export function getSimulatedPlayerFromView(e: Entity, maxDistance = 16): Simulat
     return e.getEntitiesFromViewDirection({ maxDistance, tags: [SIGN.YUME_SIM_SIGN] })[0]?.entity as SimulatedPlayer;
 }
 
-export function getEntitiesNear(location:Vector3, dimension:Dimension, maxDistance:number, Options={}){
+export function getClosestMob(location:Vector3, dimension:Dimension, maxDistance:number, Options={}){
     const EntityQueryOption:EntityQueryOptions = {}
     EntityQueryOption.maxDistance = maxDistance
     EntityQueryOption.location    = location
@@ -16,7 +16,7 @@ export function getEntitiesNear(location:Vector3, dimension:Dimension, maxDistan
     Object.assign(EntityQueryOption,Options)
     return dimension.getEntities(EntityQueryOption)
 }
-export function getPlayerNear(who:Entity|Block, maxDistance:number, defEntityQueryOptions:EntityQueryOptions):Player[] {
+export function getClosestPlayer(who:Entity|Block, maxDistance:number, defEntityQueryOptions:EntityQueryOptions):Player[] {
     const EQO: EntityQueryOptions = {}
     EQO.maxDistance = maxDistance
     EQO.location    = who.location
