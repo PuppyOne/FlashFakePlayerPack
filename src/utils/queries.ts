@@ -14,14 +14,14 @@ export function getClosestMob(location:Vector3, dimension:Dimension, maxDistance
         location,
         maxDistance,
         ...Options,
-    });
+    })[0];
 }
-export function getClosestPlayer(who:Entity|Block, maxDistance:number, defEntityQueryOptions:EntityQueryOptions={}):Player[] {
+export function getClosestPlayer(who:Entity|Block, maxDistance:number, defEntityQueryOptions:EntityQueryOptions={}):Player {
     return who.dimension.getPlayers({
         excludeTags: [SIGN.YUME_SIM_SIGN],
         closest: 1,
         location: who.location,
         maxDistance,
         ...defEntityQueryOptions,
-    });
+    })[0];
 }

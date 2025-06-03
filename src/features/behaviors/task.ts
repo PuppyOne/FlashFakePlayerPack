@@ -34,7 +34,7 @@ function AUTO_BEHAVIOR() {
         if (simulatedPlayer.hasTag(SIGN.ATTACK_SIGN) && EntitiesFromView)
             simulatedPlayer.attackEntity(EntitiesFromView);
 
-        const EntitiesNear = getClosestMob(simulatedPlayer.location, simulatedPlayer.dimension, 4)[0];
+        const EntitiesNear = getClosestMob(simulatedPlayer.location, simulatedPlayer.dimension, 4);
         if (simulatedPlayer.hasTag(SIGN.AUTO_ATTACK_SIGN) && EntitiesNear)
             simulatedPlayer.lookAtEntity(EntitiesNear);
         if (simulatedPlayer.hasTag(SIGN.AUTO_ATTACK_SIGN) && EntitiesFromView)
@@ -45,20 +45,18 @@ function AUTO_BEHAVIOR() {
                 system.runTimeout(() => simulatedPlayer.stopUsingItem(), 10);
 
         if (simulatedPlayer.hasTag(SIGN.AUTO_CHASE_SIGN)) {
-            const entities = [
-                ...getClosestMob(simulatedPlayer.location, simulatedPlayer.dimension, 12, { families: ["undead"] }),
-                ...getClosestMob(simulatedPlayer.location, simulatedPlayer.dimension, 12, { families: ["monster"] }),
-                ...getClosestPlayer(simulatedPlayer, 12)
-            ];
+            const target =
+                getClosestMob(simulatedPlayer.location, simulatedPlayer.dimension, 12, { families: ["undead"] }) ??
+                getClosestMob(simulatedPlayer.location, simulatedPlayer.dimension, 12, { families: ["monster"] }) ??
+                getClosestPlayer(simulatedPlayer, 12);
 
             let originalPosition = originalPositionMap.get(simulatedPlayer);
             if (!originalPosition) 
                 originalPositionMap.set(simulatedPlayer, simulatedPlayer.location);
 
-            if (entities.length > 0) {
+            if (target) {
 
                 // walk to target
-                const target = entities[0];
                 if (chebyshevDistance3(target.location, simulatedPlayer.location) <= 4)
                     simulatedPlayer.moveToLocation(gameTestManager.test.relativeLocation(target.location));
             } else if (originalPosition && chebyshevDistance3(simulatedPlayer.location, originalPosition) > 1) {
