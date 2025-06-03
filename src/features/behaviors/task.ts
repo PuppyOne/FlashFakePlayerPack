@@ -34,7 +34,7 @@ function AUTO_BEHAVIOR() {
         if (simulatedPlayer.hasTag(SIGN.ATTACK_SIGN) && EntitiesFromView)
             simulatedPlayer.attackEntity(EntitiesFromView);
 
-        const EntitiesNear = getClosestMob(simulatedPlayer.location, simulatedPlayer.dimension, 4, {})[0];
+        const EntitiesNear = getClosestMob(simulatedPlayer.location, simulatedPlayer.dimension, 4)[0];
         if (simulatedPlayer.hasTag(SIGN.AUTO_ATTACK_SIGN) && EntitiesNear)
             simulatedPlayer.lookAtEntity(EntitiesNear);
         if (simulatedPlayer.hasTag(SIGN.AUTO_ATTACK_SIGN) && EntitiesFromView)
@@ -48,7 +48,7 @@ function AUTO_BEHAVIOR() {
             const entities = [
                 ...getClosestMob(simulatedPlayer.location, simulatedPlayer.dimension, 12, { families: ["undead"] }),
                 ...getClosestMob(simulatedPlayer.location, simulatedPlayer.dimension, 12, { families: ["monster"] }),
-                ...getClosestPlayer(simulatedPlayer, 12, {})
+                ...getClosestPlayer(simulatedPlayer, 12)
             ];
 
             let originalPosition = originalPositionMap.get(simulatedPlayer);

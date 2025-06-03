@@ -16,7 +16,7 @@ export function getClosestMob(location:Vector3, dimension:Dimension, maxDistance
         ...Options,
     });
 }
-export function getClosestPlayer(who:Entity|Block, maxDistance:number, defEntityQueryOptions:EntityQueryOptions):Player[] {
+export function getClosestPlayer(who:Entity|Block, maxDistance:number, defEntityQueryOptions:EntityQueryOptions={}):Player[] {
     return who.dimension.getPlayers({
         excludeTags: [SIGN.YUME_SIM_SIGN],
         closest: 1,
