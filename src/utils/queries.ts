@@ -21,7 +21,7 @@ export const getSimulatedPlayerFromView = (
 export const getClosestMob = (
     { dimension, location }: HasDimensionLocation,
     maxDistance: number,
-    Options = {}
+    options = {}
 ): Entity | undefined => {
     return dimension.getEntities({
         excludeTypes: [
@@ -33,21 +33,21 @@ export const getClosestMob = (
         closest: 1,
         location,
         maxDistance,
-        ...Options,
+        ...options,
     })[0];
 };
 
 export const getClosestPlayer = (
     { dimension, location }: HasDimensionLocation,
     maxDistance: number,
-    defEntityQueryOptions: EntityQueryOptions = {}
+    options: EntityQueryOptions = {}
 ): Player | undefined => {
     return dimension.getPlayers({
         excludeTags: [SIGN.YUME_SIM_SIGN],
         closest: 1,
         location,
         maxDistance,
-        ...defEntityQueryOptions,
+        ...options,
     })[0];
 };
 
