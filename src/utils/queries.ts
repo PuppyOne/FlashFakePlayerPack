@@ -7,7 +7,7 @@ export function getSimulatedPlayerFromView(e: Entity, maxDistance = 16): Simulat
     return e.getEntitiesFromViewDirection({ maxDistance, tags: [SIGN.YUME_SIM_SIGN] })[0]?.entity as SimulatedPlayer;
 }
 
-export function getClosestMob(location:Vector3, dimension:Dimension, maxDistance:number, Options={}){
+export function getClosestMob(location:Vector3, dimension:Dimension, maxDistance:number, Options={}): Entity{
     return dimension.getEntities({
         excludeTypes: ["minecraft:player", "minecraft:arrow", "minecraft:xp_orb", "minecraft:item"],
         closest: 1,
