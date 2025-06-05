@@ -11,18 +11,18 @@ import type { SimulatedPlayer } from '@minecraft/server-gametest';
 export const getSimulatedPlayerFromView = (
     e: Entity,
     maxDistance = 16
-): SimulatedPlayer => {
+): SimulatedPlayer | undefined => {
     return e.getEntitiesFromViewDirection({
         maxDistance,
         tags: [SIGN.YUME_SIM_SIGN],
-    })[0]?.entity as SimulatedPlayer;
+    })[0]?.entity as SimulatedPlayer | undefined;
 };
 
 export const getClosestMob = (
     { dimension, location }: HasDimensionLocation,
     maxDistance: number,
     Options = {}
-): Entity => {
+): Entity | undefined => {
     return dimension.getEntities({
         excludeTypes: [
             'minecraft:player',
@@ -41,7 +41,7 @@ export const getClosestPlayer = (
     { dimension, location }: HasDimensionLocation,
     maxDistance: number,
     defEntityQueryOptions: EntityQueryOptions = {}
-): Player => {
+): Player | undefined => {
     return dimension.getPlayers({
         excludeTags: [SIGN.YUME_SIM_SIGN],
         closest: 1,
