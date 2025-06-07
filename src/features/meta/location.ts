@@ -1,7 +1,7 @@
 import { dimensionMap } from "@/constants";
 import { commandManager } from "@/core/command";
 import type { PID } from "@/core/pid";
-import { getSimPlayer } from "@/utils";
+import { getSimulatedPlayerFromView } from "@/utils";
 import { simulatedPlayerManager } from '@/core/simulated-player';
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
@@ -15,7 +15,7 @@ commandManager.register(['假人位置', '假人坐标'], ({ player, args: [simI
         ;
         ; "对准~";
         ;
-        simulatedPlayer = getSimPlayer.fromView(player);
+        simulatedPlayer = getSimulatedPlayerFromView(player);
         if (!simulatedPlayer) return player.sendMessage("§e§l-面前不存在模拟玩家");
     } else {
         const index = Number(simIndex);

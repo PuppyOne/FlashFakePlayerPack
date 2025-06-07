@@ -1,5 +1,5 @@
 import { SIGN } from '@/constants';
-import { getSimPlayer } from '@/utils';
+import { getSimulatedPlayerFromView } from '@/utils';
 import { commandManager } from '@/core/command';
 
 interface BehaviorCommandConfig {
@@ -75,7 +75,7 @@ const registerBehaviorCommands = () => {
     behaviorCommandConfigs.forEach(({ behavior, adds, removes }) => {
         commandManager.register(`${behaviorPrefix}${behavior}`, ({ player }) => {
             if (!player) return;
-            const simulatedPlayer = getSimPlayer.fromView(player);
+            const simulatedPlayer = getSimulatedPlayerFromView(player);
             if (!simulatedPlayer) return;
 
             adds.forEach(tag => {

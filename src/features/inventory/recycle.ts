@@ -1,5 +1,5 @@
 import { commandManager } from "@/core/command";
-import { getSimPlayer } from "@/utils";
+import { getSimulatedPlayerFromView } from "@/utils";
 import { EntityComponentTypes, EquipmentSlot } from "@minecraft/server";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
@@ -9,7 +9,7 @@ commandManager.register(['假人资源回收','假人背包清空','假人爆金
         return
     }
 
-    const simulatedPlayer:SimulatedPlayer = sim ?? getSimPlayer.fromView(player)
+    const simulatedPlayer:SimulatedPlayer = sim ?? getSimulatedPlayerFromView(player)
     if(!simulatedPlayer)return
 
     const equip = simulatedPlayer.getComponent(EntityComponentTypes.Equippable)
