@@ -20,7 +20,7 @@ export const getSimulatedPlayerFromView = (
 
 export const getClosestMob = (
     { dimension, location }: HasDimensionLocation,
-    maxDistance: number,
+    maxDistance: number = 16,
     options: Options = {}
 ): Entity | undefined => {
     return dimension.getEntities({
@@ -39,7 +39,7 @@ export const getClosestMob = (
 
 export const getClosestPlayer = (
     { dimension, location }: HasDimensionLocation,
-    maxDistance: number,
+    maxDistance: number = 16,
     options: Options = {}
 ): Player | undefined => {
     return dimension.getPlayers({
