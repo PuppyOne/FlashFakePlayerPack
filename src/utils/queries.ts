@@ -9,10 +9,10 @@ import type {
 import type { SimulatedPlayer } from '@minecraft/server-gametest';
 
 export const getSimulatedPlayerFromView = (
-    e: Entity,
+    entity: Entity,
     maxDistance = 16
 ): SimulatedPlayer | undefined => {
-    return e.getEntitiesFromViewDirection({
+    return entity.getEntitiesFromViewDirection({
         maxDistance,
         tags: [SIGN.YUME_SIM_SIGN],
     })[0]?.entity as SimulatedPlayer | undefined;
